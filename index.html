@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizens Oil Co-op - Member Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="app-name">Citizens Oil Co-op</div>
+        <div class="header-right">
+            <div class="record-nav">
+                <button class="nav-btn" onclick="navigateRecord('first')" title="First Record">|&lt;</button>
+                <button class="nav-btn" onclick="navigateRecord('prev')" title="Previous Record">&lt;</button>
+                <button class="nav-btn" onclick="navigateRecord('next')" title="Next Record">&gt;</button>
+                <button class="nav-btn" onclick="navigateRecord('last')" title="Last Record">&gt;|</button>
+            </div>
+            <input type="text" class="search-box" id="globalSearch" placeholder="Search members..." onkeyup="handleSearch(event)">
+            <select id="filterDropdown" class="filter-dropdown" onchange="filterMembers()">
+                <option value="all">All Records</option>
+                <option value="active">Active Members</option>
+                <option value="inactive">Inactive Members</option>
+                <option value="prospective">Prospective</option>
+            </select>
+            <div class="record-count">Record <span id="currentRecord">1</span> | Found <span id="totalRecords">5</span> of <span id="totalMembers">5</span></div>
+            <div class="staff-name">Staff: Admin User</div>
+        </div>
+    </div>
+
+    <!-- Tab Navigation Bar -->
+    <div class="tab-bar">
+        <button class="tab-btn active" data-tab="data-entry">Data Entry</button>
+        <button class="tab-btn" data-tab="worksheet">Worksheet</button>
+        <button class="tab-btn" data-tab="payment-history">PAYMENT HISTORY</button>
+        <button class="tab-btn" data-tab="mailings">MAILINGS</button>
+        <button class="tab-btn" data-tab="print-full-record">PRINT FULL RECORD</button>
+        <button class="tab-btn" data-tab="run-backup">RUN BACKUP</button>
+        <button class="tab-btn" data-tab="oil-co-form">OIL CO FORM</button>
+        <button class="tab-btn" data-tab="referrals-by-member">REFERRALS BY MEMBER</button>
+        <button class="tab-btn" data-tab="members-list">MEMBERS LIST</button>
+        <button class="tab-btn" data-tab="member-status-rpt">MEMBER STATUS RPT</button>
+        <button class="tab-btn" data-tab="oil-co-worksheet">Oil Co Worksheet</button>
+        <button class="tab-btn" data-tab="refund-letter">REFUND LETTER</button>
+        <button class="tab-btn" data-tab="start-date-letter">START DATE LETTER</button>
+        <button class="tab-btn" data-tab="multiple-referral-letter">Multiple Referral Letter</button>
+        <button class="tab-btn" data-tab="renewal-mailing">Renewal Mailing</button>
+        <button class="tab-btn" data-tab="prospective-mailing">Prospective Mailing</button>
+    </div>
+
+    <div class="main-container">
+        <!-- ==================== DATA ENTRY TAB ==================== -->
+        <div id="data-entry" class="tab-content active">
+            <div class="action-bar">
+                <button class="btn btn-primary" onclick="addNewMember()">ADD NEW MEMBER</button>
+                <button class="btn btn-primary" onclick="addProspect()">ADD PROSPECT</button>
+                <button class="btn btn-danger" onclick="deleteMember()">DELETE THIS MEMBER</button>
+                <button class="btn btn-secondary" onclick="showModal('addCompanyModal')">ADD NEW CO.</button>
+            </div>
+
+            <div class="two-column-layout">
+                <!-- Left Column -->
+                <div class="column">
+                    <!-- Member Identity Card -->
+                    <div class="card">
+                        <div class="card-title">Member Identity</div>
+
+                        <div class="status-row">
+                            <label>Status:</label>
+                            <div class="radio-group inline">
+                                <label class="radio-label"><input type="radio" name="status" value="ACTIVE" checked> <span class="status-active">ACTIVE</span></label>
+                                <label class="radio-label"><input type="radio" name="status" value="INACTIVE"> <span class="status-inactive">INACTIVE</span></label>
+                                <label class="radio-label"><input type="radio" name="status" value="PROSPECTIVE"> <span class="status-prospective">PROSPECTIVE</span></label>
+                                <label class="radio-label"><input type="radio" name="status" value="RESIDENT"> RESIDENT</label>
+                                <label class="radio-label"><input type="radio" name="status" value="NO OIL"> NO OIL</label>
+                                <label class="radio-label"><input type="radio" name="status" value="UNKNOWN"> UNKNOWN</label>
+                            </div>
+                        </div>
+
+                        <div class="form-row three-col">
+                            <div class="form-group">
+                                <label>ID</label>
+                                <input type="text" id="memberId" value="1" readonly class="readonly-field">
+                            </div>
+                            <div class="form-group">
+                                <label>REC_TYPE</label>
+                                <select id="recType">
+                                    <option value="IND" selected>IND</option>
+                                    <option value="BUS">BUS</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>NEW MEMBER DT</label>
+                                <input type="date" id="newMemberDate" value="2023-01-17">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Original Start Date</label>
+                                <input type="date" id="originalStartDate" value="2005-01-18">
+                            </div>
+                            <div class="form-group">
+                                <label>CLUSTER</label>
+                                <input type="text" id="cluster" value="10">
+                            </div>
+                            <div class="form-group checkbox-inline">
+                                <label><input type="checkbox" id="senior"> SENIOR</label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>FIRST NAME 1</label>
+                                <input type="text" id="firstName1" value="Chris">
+                            </div>
+                            <div class="form-group small">
+                                <label>MID NAME 1</label>
+                                <input type="text" id="midName1">
+                            </div>
+                            <div class="form-group">
+                                <label>LAST NAME 1</label>
+                                <input type="text" id="lastName1" value="Marolda">
+                            </div>
+                            <div class="form-group small">
+                                <label>SUFFIX1</label>
+                                <input type="text" id="suffix1">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>FIRST NAME 2</label>
+                                <input type="text" id="firstName2" value="Annmarie">
+                            </div>
+                            <div class="form-group small">
+                                <label>MID NAME 2</label>
+                                <input type="text" id="midName2">
+                            </div>
+                            <div class="form-group">
+                                <label>LAST NAME 2</label>
+                                <input type="text" id="lastName2" value="Marolda">
+                            </div>
+                            <div class="form-group small">
+                                <label>SUFFIX2</label>
+                                <input type="text" id="suffix2">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group small">
+                                <label>STREET_NO</label>
+                                <input type="text" id="streetNo" value="433">
+                            </div>
+                            <div class="form-group">
+                                <label>STREET_NM</label>
+                                <input type="text" id="streetName" value="Tollgate Road">
+                            </div>
+                            <div class="form-group small">
+                                <label>APT_NO_1</label>
+                                <input type="text" id="aptNo">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Address Line2</label>
+                            <input type="text" id="addressLine2">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>CITY</label>
+                                <input type="text" id="city" value="Berlin">
+                            </div>
+                            <div class="form-group small">
+                                <label>STATE</label>
+                                <input type="text" id="state" value="CT" maxlength="2">
+                            </div>
+                            <div class="form-group small">
+                                <label>ZIP</label>
+                                <input type="text" id="zip" value="06037">
+                            </div>
+                            <div class="form-group small">
+                                <label>PLUS_4</label>
+                                <input type="text" id="plus4">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>COMPANY</label>
+                                <input type="text" id="company">
+                            </div>
+                        </div>
+
+                        <div class="checkbox-row">
+                            <label><input type="checkbox" id="ppau"> PP&U</label>
+                            <label><input type="checkbox" id="starion"> Starion</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>NOTE</label>
+                            <textarea id="note" rows="2"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Employer</label>
+                            <input type="text" id="employer">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>The Next Step?</label>
+                                <input type="text" id="nextStep" value="Yes">
+                            </div>
+                            <div class="form-group">
+                                <label>REFERRED BY ID</label>
+                                <input type="text" id="referredById">
+                            </div>
+                            <div class="form-group">
+                                <label>DATE REFERRED</label>
+                                <input type="date" id="dateReferred">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Electric Status Card -->
+                    <div class="card">
+                        <div class="card-title highlight-yellow">ELECTRIC STATUS</div>
+                        <div class="radio-group vertical">
+                            <label class="radio-label"><input type="radio" name="electricStatus" value="ELECTRIC"> <span class="status-electric">ELECTRIC</span></label>
+                            <label class="radio-label"><input type="radio" name="electricStatus" value="PENDING"> <span class="status-pending">PENDING</span></label>
+                            <label class="radio-label"><input type="radio" name="electricStatus" value="INTERESTED"> <span class="status-interested">INTERESTED</span></label>
+                            <label class="radio-label"><input type="radio" name="electricStatus" value="UNKNOWN" checked> <span class="status-unknown">UNKNOWN</span></label>
+                            <label class="radio-label"><input type="radio" name="electricStatus" value="DROPPED"> <span class="status-dropped">DROPPED</span></label>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Elec Sign Up Date</label>
+                                <input type="date" id="elecSignUpDate" value="2020-11-14">
+                            </div>
+                            <div class="form-group">
+                                <label>Elec Start Date</label>
+                                <input type="date" id="elecStartDate">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Name Key</label>
+                                <input type="text" id="nameKey" value="MORA">
+                            </div>
+                            <div class="form-group">
+                                <label>Dropped Date</label>
+                                <input type="date" id="droppedDate" value="2020-05-15">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>ELECTRICITY ACCOUNT NUMBER</label>
+                            <input type="text" id="electricityAccountNumber" value="51299023036">
+                        </div>
+                        <div class="checkbox-row">
+                            <label><input type="checkbox" id="notPaidCurrentYr"> Not Paid Current Yr</label>
+                            <label><input type="checkbox" id="delinquent"> DELINQUENT</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="column">
+                    <!-- Contact Information Card -->
+                    <div class="card">
+                        <div class="card-title">Contact Information</div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>PHONE_1</label>
+                                <input type="tel" id="phone1" value="(860) 828-7559">
+                            </div>
+                            <div class="form-group">
+                                <label>TYPE OF PHONE1</label>
+                                <select id="phone1Type">
+                                    <option value="HOME" selected>HOME</option>
+                                    <option value="WORK">WORK</option>
+                                    <option value="CELL">CELL</option>
+                                </select>
+                            </div>
+                            <div class="form-group small">
+                                <label>P1 EXT</label>
+                                <input type="text" id="phone1Ext">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>PHONE_2</label>
+                                <input type="tel" id="phone2" value="(860) 233-2181">
+                            </div>
+                            <div class="form-group">
+                                <label>TYPE OF PHONE2</label>
+                                <select id="phone2Type">
+                                    <option value="HOME">HOME</option>
+                                    <option value="WORK" selected>WORK</option>
+                                    <option value="CELL">CELL</option>
+                                </select>
+                            </div>
+                            <div class="form-group small">
+                                <label>P2 EXT</label>
+                                <input type="text" id="phone2Ext" value="309">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>PHONE_3</label>
+                                <input type="tel" id="phone3">
+                            </div>
+                            <div class="form-group">
+                                <label>TYPE OF PHONE3</label>
+                                <select id="phone3Type">
+                                    <option value=""></option>
+                                    <option value="HOME">HOME</option>
+                                    <option value="WORK">WORK</option>
+                                    <option value="CELL">CELL</option>
+                                </select>
+                            </div>
+                            <div class="form-group small">
+                                <label>P3 EXT</label>
+                                <input type="text" id="phone3Ext">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group flex-grow">
+                                <label>E_MAIL</label>
+                                <input type="email" id="email" value="chris@ccag.net">
+                            </div>
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <span class="opted-out-label">- Opted Out</span>
+                            </div>
+                        </div>
+
+                        <div class="button-row">
+                            <button class="btn btn-secondary" onclick="useBothNames()">Use Both Names</button>
+                            <button class="btn btn-primary" onclick="showMailAddress()">MAIL ADDR</button>
+                        </div>
+
+                        <div class="button-row">
+                            <label><input type="checkbox" id="callBack"> CALL BACK</label>
+                            <div class="form-group inline-small">
+                                <label>CALL BACK DATE</label>
+                                <input type="date" id="callBackDate">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Oil Company Card -->
+                    <div class="card">
+                        <div class="card-title">Oil Company Information</div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>OIL CO CODE</label>
+                                <select id="oilCoCode">
+                                    <option value="PETRO" selected>PETRO</option>
+                                    <option value="HOCON">HOCON</option>
+                                    <option value="DZEN">DZEN</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-info" onclick="showOilCoInfo()">OIL CO INFO</button>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-warning" onclick="showPropCoInfo()">PROP CO INFO</button>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>OIL_ID</label>
+                                <input type="text" id="oilId" value="6550778">
+                            </div>
+                            <div class="form-group">
+                                <label>PROP CO CODE</label>
+                                <select id="propCoCode">
+                                    <option value="THOM" selected>THOM</option>
+                                    <option value="AMERIGAS">AMERIGAS</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>HOW JOINED</label>
+                                <select id="howJoined">
+                                    <option value="PHO" selected>PHO</option>
+                                    <option value="WEB">WEB</option>
+                                    <option value="REF">REF</option>
+                                    <option value="MAIL">MAIL</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>REFERRAL</label>
+                                <select id="referral">
+                                    <option value="CCAG" selected>CCAG</option>
+                                    <option value="MEMBER">MEMBER</option>
+                                    <option value="OTHER">OTHER</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Propane Status Card -->
+                    <div class="card">
+                        <div class="card-title highlight-red">PROPANE STATUS</div>
+                        <div class="radio-group vertical">
+                            <label class="radio-label"><input type="radio" name="propaneStatus" value="ACTIVE"> <span class="status-active">ACTIVE</span></label>
+                            <label class="radio-label"><input type="radio" name="propaneStatus" value="INACTIVE"> <span class="status-inactive">INACTIVE</span></label>
+                            <label class="radio-label"><input type="radio" name="propaneStatus" value="PROSPECTIVE" checked> <span class="status-prospective">PROSPECTIVE</span></label>
+                            <label class="radio-label"><input type="radio" name="propaneStatus" value="RESIDENT"> RESIDENT</label>
+                            <label class="radio-label"><input type="radio" name="propaneStatus" value="NO PROPANE"> NO PROPANE</label>
+                            <label class="radio-label"><input type="radio" name="propaneStatus" value="UNKNOWN"> <span class="status-unknown">UNKNOWN</span></label>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>PROPANE START DATE</label>
+                                <input type="date" id="propaneStartDate">
+                            </div>
+                            <div class="form-group">
+                                <label>PROPANE ID</label>
+                                <input type="text" id="propaneId">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Oil Program Card -->
+                    <div class="card">
+                        <div class="card-title">Oil Program</div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Oil Program</th>
+                                    <th>EST GALLONS</th>
+                                    <th>Rate</th>
+                                    <th>Heating Year</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="oilProgramTable">
+                                <tr>
+                                    <td><select><option>FLOAT</option><option>CAP</option><option>FIXED</option></select></td>
+                                    <td><input type="text"></td>
+                                    <td><input type="text"></td>
+                                    <td><select><option>2020</option><option>2021</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option></select></td>
+                                    <td><button class="btn btn-danger btn-sm">DEL</button></td>
+                                </tr>
+                                <tr>
+                                    <td><select><option>FLOAT</option></select></td>
+                                    <td><input type="text"></td>
+                                    <td><input type="text"></td>
+                                    <td><select><option>2019</option><option selected>2019</option></select></td>
+                                    <td><button class="btn btn-danger btn-sm">DEL</button></td>
+                                </tr>
+                                <tr>
+                                    <td><select><option>FLOAT</option></select></td>
+                                    <td><input type="text"></td>
+                                    <td><input type="text"></td>
+                                    <td><select><option selected>2018</option></select></td>
+                                    <td><button class="btn btn-danger btn-sm">DEL</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="checkbox-row mt-10">
+                            <label><input type="checkbox" id="contactHistory"> CONTACT HISTORY</label>
+                            <label><input type="checkbox" id="deliveryHistory" checked> DELIVERY HISTORY</label>
+                            <label><input type="checkbox" id="nrdOil"> NRD-Oil</label>
+                            <label><input type="checkbox" id="nrdProp"> NRD-Prop</label>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="card">
+                        <div class="button-row">
+                            <button class="btn btn-danger" onclick="showContactHistory()">CONTACT HISTORY</button>
+                            <button class="btn btn-danger" onclick="showDeliveryHistory()">DELIVERY HISTORY</button>
+                            <button class="btn btn-primary" onclick="showDeliveryReports()">Delivery Reports</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== WORKSHEET TAB ==================== -->
+        <div id="worksheet" class="tab-content">
+            <h2>Worksheet</h2>
+            <div class="card">
+                <div class="card-title">Member Worksheet</div>
+                <div class="worksheet-grid">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Member Name</label>
+                            <input type="text" id="ws_memberName" value="Chris Marolda" readonly class="readonly-field">
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" id="ws_address" value="433 Tollgate Road, Berlin, CT 06037" readonly class="readonly-field">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Oil Company</label>
+                            <input type="text" id="ws_oilCo" value="PETRO" readonly class="readonly-field">
+                        </div>
+                        <div class="form-group">
+                            <label>Oil ID</label>
+                            <input type="text" id="ws_oilId" value="6550778" readonly class="readonly-field">
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <input type="text" id="ws_status" value="ACTIVE" readonly class="readonly-field status-active">
+                        </div>
+                    </div>
+                </div>
+                <div class="action-buttons mt-20">
+                    <button class="btn btn-primary" onclick="printWorksheet()">Print Worksheet</button>
+                    <button class="btn btn-secondary" onclick="exportWorksheet()">Export to PDF</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PAYMENT HISTORY TAB ==================== -->
+        <div id="payment-history" class="tab-content">
+            <h2>PAYMENT HISTORY</h2>
+
+            <!-- Member Summary Header -->
+            <div class="member-summary-bar">
+                <div class="summary-item"><label>ID</label><span id="ph_id">1</span></div>
+                <div class="summary-item"><label>NEW MEMBER DT</label><span id="ph_memberDate">1/17/2023</span></div>
+                <div class="summary-item"><label>F_NAME_1</label><span id="ph_firstName">Chris</span></div>
+                <div class="summary-item"><label>L_NAME_1</label><span id="ph_lastName">Marolda</span></div>
+                <div class="summary-item"><label>FULL ADDRESS</label><span id="ph_address">433 Tollgate Road</span></div>
+                <div class="summary-item"><label>CITY/STATE/ZIP</label><span id="ph_cityStateZip">Berlin, CT 06037</span></div>
+                <div class="summary-item"><label>PHONE_1</label><span id="ph_phone1">(860) 828-7559</span></div>
+                <div class="summary-item"><label>TYPE OF PHONE1</label><span>HOME</span></div>
+                <div class="summary-item"><label>PHONE_2</label><span id="ph_phone2">(860) 233-2181</span></div>
+                <div class="summary-item"><label>TYPE OF PHONE2</label><span>WORK</span></div>
+                <div class="summary-item"><label>E_MAIL</label><span id="ph_email">chris@ccag.net - Opted Out</span></div>
+                <div class="summary-item"><label>OIL_CO</label><span id="ph_oilCo">PETRO</span></div>
+                <div class="summary-item"><label>OIL_ID</label><span id="ph_oilId">6550778</span></div>
+                <div class="summary-item"><label>PROPANE ID</label><span id="ph_propaneId"></span></div>
+            </div>
+
+            <div class="two-column-layout">
+                <div class="column">
+                    <!-- Oil Status -->
+                    <div class="card compact">
+                        <div class="card-title">O I L</div>
+                        <div class="radio-group vertical compact">
+                            <label class="radio-label"><input type="radio" name="ph_oilStatus" value="ACTIVE" checked> <span class="status-active">ACTIVE</span></label>
+                            <label class="radio-label"><input type="radio" name="ph_oilStatus" value="INACTIVE"> <span class="status-inactive">INACTIVE</span></label>
+                            <label class="radio-label"><input type="radio" name="ph_oilStatus" value="PROSPECTIVE"> <span class="status-prospective">PROSPECTIVE</span></label>
+                            <label class="radio-label"><input type="radio" name="ph_oilStatus" value="UNKNOWN"> UNKNOWN</label>
+                        </div>
+                    </div>
+
+                    <!-- Propane Status -->
+                    <div class="card compact">
+                        <div class="card-title">P R O P</div>
+                        <div class="radio-group vertical compact">
+                            <label class="radio-label"><input type="radio" name="ph_propStatus" value="ACTIVE"> ACTIVE</label>
+                            <label class="radio-label"><input type="radio" name="ph_propStatus" value="INACTIVE"> INACTIVE</label>
+                            <label class="radio-label"><input type="radio" name="ph_propStatus" value="NO PROPANE"> NO PROPANE</label>
+                            <label class="radio-label"><input type="radio" name="ph_propStatus" value="PROSPECTIVE" checked> <span class="status-prospective">PROSPECTIVE</span></label>
+                            <label class="radio-label"><input type="radio" name="ph_propStatus" value="UNKNOWN"> <span class="status-unknown">UNKNOWN</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <!-- Registration Fee Section -->
+                    <div class="card">
+                        <div class="card-title">Registration Fee</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>CLUSTER</label>
+                                <input type="text" id="ph_cluster" value="10">
+                            </div>
+                            <div class="form-group">
+                                <label>REGISTRATION FEE</label>
+                                <input type="text" id="ph_regFee" value="10">
+                            </div>
+                            <div class="form-group">
+                                <label>DT PAID</label>
+                                <input type="date" id="ph_dtPaid" value="2005-01-20">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>CHECK/CREDIT</label>
+                                <input type="text" id="ph_checkCredit" value="3698">
+                            </div>
+                        </div>
+                        <div class="checkbox-row">
+                            <label><input type="checkbox" id="ph_waiveFee"> Waive fee for year</label>
+                            <label><input type="checkbox" id="ph_senior"> SENIOR</label>
+                            <label><input type="checkbox" id="ph_lifetime" checked> LIFETIME MEMBER</label>
+                        </div>
+                        <div class="checkbox-row">
+                            <label><input type="checkbox" id="ph_regPaid" checked> Registration PAID</label>
+                            <label><input type="checkbox" id="ph_regWaived"> Registration WAIVED</label>
+                            <label><input type="checkbox" id="ph_notPaidCurrent"> Not Paid Current Yr</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Payment notes</label>
+                            <input type="text" id="ph_paymentNotes" value="Lifetime: Friend">
+                        </div>
+                    </div>
+
+                    <!-- Credit Card Section -->
+                    <div class="card">
+                        <div class="card-title">Credit Card Information</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Credit Card Type</label>
+                                <select id="ph_ccType">
+                                    <option value=""></option>
+                                    <option value="VISA">VISA</option>
+                                    <option value="MC">MasterCard</option>
+                                    <option value="AMEX">AMEX</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Credit Card Number</label>
+                                <input type="text" id="ph_ccNumber">
+                            </div>
+                            <div class="form-group">
+                                <label>Credit Card Expiration</label>
+                                <input type="text" id="ph_ccExpiration">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Name on Credit Card</label>
+                            <input type="text" id="ph_ccName" value="LEAD">
+                        </div>
+                    </div>
+
+                    <!-- Renewal Fee Table -->
+                    <div class="card">
+                        <div class="card-title highlight-yellow">RENEWAL FEE:</div>
+                        <div class="checkbox-row mb-10">
+                            <label><input type="checkbox" id="ph_deliveryHistoryCheck" checked> DELIVERY HISTORY</label>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Billing Year</th>
+                                    <th>FEE WAIVED</th>
+                                    <th>Date Received</th>
+                                    <th>Amount Received</th>
+                                    <th>Payment Method</th>
+                                    <th>New Renew</th>
+                                    <th>Check Number</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="renewalFeeTable">
+                                <tr>
+                                    <td><input type="text" value="2025"></td>
+                                    <td><select><option selected>Yes</option><option>No</option></select></td>
+                                    <td><input type="date" value="2025-06-01"></td>
+                                    <td><input type="text"></td>
+                                    <td><input type="text"></td>
+                                    <td><select><option selected>Renew</option><option>New</option></select></td>
+                                    <td><input type="text"></td>
+                                    <td><button class="btn btn-danger btn-sm">DEL</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" value="2024"></td>
+                                    <td><select><option selected>Yes</option><option>No</option></select></td>
+                                    <td><input type="date" value="2024-06-01"></td>
+                                    <td><input type="text"></td>
+                                    <td><input type="text"></td>
+                                    <td><select><option selected>Renew</option><option>New</option></select></td>
+                                    <td><input type="text"></td>
+                                    <td><button class="btn btn-danger btn-sm">DEL</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" value="2023"></td>
+                                    <td><select><option selected>Yes</option><option>No</option></select></td>
+                                    <td><input type="date" value="2023-06-01"></td>
+                                    <td><input type="text"></td>
+                                    <td><input type="text"></td>
+                                    <td><select><option selected>Renew</option><option>New</option></select></td>
+                                    <td><input type="text"></td>
+                                    <td><button class="btn btn-danger btn-sm">DEL</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-primary btn-sm mt-10" onclick="addRenewalRow()">Add Row</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== MAILINGS TAB ==================== -->
+        <div id="mailings" class="tab-content">
+            <h2>MAILINGS</h2>
+            <div class="card">
+                <div class="card-title">Mailing Options</div>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="generateMailing('renewal')">Generate Renewal Mailing</button>
+                    <button class="btn btn-primary" onclick="generateMailing('prospective')">Generate Prospective Mailing</button>
+                    <button class="btn btn-secondary" onclick="generateMailing('custom')">Custom Mailing</button>
+                </div>
+                <div class="form-group mt-20">
+                    <label>Mailing Date</label>
+                    <input type="date" id="mailingDate">
+                </div>
+                <div class="checkbox-row">
+                    <label><input type="checkbox"> Include Active Members</label>
+                    <label><input type="checkbox"> Include Prospective Members</label>
+                    <label><input type="checkbox"> Include Inactive Members</label>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">Recent Mailings</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Recipients</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>01/15/2026</td>
+                            <td>Renewal Mailing</td>
+                            <td>342</td>
+                            <td><span class="badge badge-success">Completed</span></td>
+                        </tr>
+                        <tr>
+                            <td>12/01/2025</td>
+                            <td>Prospective Mailing</td>
+                            <td>128</td>
+                            <td><span class="badge badge-success">Completed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ==================== MEMBERS LIST TAB ==================== -->
+        <div id="members-list" class="tab-content">
+            <h2>MEMBERS LIST</h2>
+            <div class="card">
+                <div class="card-title">All Members</div>
+                <div class="form-row mb-10">
+                    <div class="form-group">
+                        <label>Filter by Status</label>
+                        <select id="memberListFilter" onchange="filterMemberList()">
+                            <option value="all">All</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="prospective">Prospective</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Search</label>
+                        <input type="text" id="memberListSearch" placeholder="Search by name..." onkeyup="filterMemberList()">
+                    </div>
+                </div>
+                <table class="data-table clickable-rows">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>Phone</th>
+                            <th>Oil Co</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="membersListTable">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ==================== MEMBER STATUS REPORT TAB ==================== -->
+        <div id="member-status-rpt" class="tab-content">
+            <h2>MEMBER STATUS REPORT</h2>
+            <div class="card">
+                <div class="card-title">Status Summary</div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat_active">3</div>
+                        <div class="stat-label">Active Members</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat_inactive">1</div>
+                        <div class="stat-label">Inactive Members</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat_prospective">1</div>
+                        <div class="stat-label">Prospective</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat_total">5</div>
+                        <div class="stat-label">Total Records</div>
+                    </div>
+                </div>
+                <div class="action-buttons mt-20">
+                    <button class="btn btn-primary" onclick="printReport()">Print Report</button>
+                    <button class="btn btn-secondary" onclick="exportReport()">Export to Excel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== OIL CO FORM TAB ==================== -->
+        <div id="oil-co-form" class="tab-content">
+            <h2>OIL CO FORM</h2>
+            <div class="card">
+                <div class="card-title">Oil Company Information</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Company Name</th>
+                            <th>Phone</th>
+                            <th>Contact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PETRO</td>
+                            <td>Petro Home Services</td>
+                            <td>(800) 645-4328</td>
+                            <td>Customer Service</td>
+                        </tr>
+                        <tr>
+                            <td>HOCON</td>
+                            <td>Hocon Gas</td>
+                            <td>(860) 693-8388</td>
+                            <td>Service Desk</td>
+                        </tr>
+                        <tr>
+                            <td>DZEN</td>
+                            <td>Dzen Oil Company</td>
+                            <td>(860) 621-6627</td>
+                            <td>Main Office</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ==================== OIL CO WORKSHEET TAB ==================== -->
+        <div id="oil-co-worksheet" class="tab-content">
+            <h2>Oil Co Worksheet</h2>
+            <div class="card">
+                <div class="card-title">Members by Oil Company</div>
+                <div class="form-group">
+                    <label>Select Oil Company</label>
+                    <select id="oilCoWorksheetSelect" onchange="loadOilCoMembers()">
+                        <option value="PETRO">PETRO</option>
+                        <option value="HOCON">HOCON</option>
+                        <option value="DZEN">DZEN</option>
+                    </select>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Oil ID</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="oilCoWorksheetTable">
+                        <tr><td>1</td><td>Chris Marolda</td><td>6550778</td><td>ACTIVE</td></tr>
+                        <tr><td>3</td><td>Robert Smith</td><td>6550890</td><td>ACTIVE</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ==================== REFERRALS BY MEMBER TAB ==================== -->
+        <div id="referrals-by-member" class="tab-content">
+            <h2>REFERRALS BY MEMBER</h2>
+            <div class="card">
+                <div class="card-title">Member Referrals</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Referring Member</th>
+                            <th>Referred Member</th>
+                            <th>Date Referred</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Chris Marolda</td>
+                            <td>Jane Wilson</td>
+                            <td>03/15/2024</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Robert Smith</td>
+                            <td>Michael Brown</td>
+                            <td>06/20/2023</td>
+                            <td><span class="badge badge-warning">Prospective</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ==================== PRINT FULL RECORD TAB ==================== -->
+        <div id="print-full-record" class="tab-content">
+            <h2>PRINT FULL RECORD</h2>
+            <div class="card">
+                <div class="card-title">Print Options</div>
+                <div class="form-group">
+                    <label>Member</label>
+                    <input type="text" id="printMemberName" value="Chris Marolda" readonly class="readonly-field">
+                </div>
+                <div class="checkbox-row">
+                    <label><input type="checkbox" checked> Include Contact Information</label>
+                    <label><input type="checkbox" checked> Include Payment History</label>
+                    <label><input type="checkbox" checked> Include Delivery History</label>
+                    <label><input type="checkbox"> Include Notes</label>
+                </div>
+                <div class="action-buttons mt-20">
+                    <button class="btn btn-primary" onclick="printFullRecord()">Print Record</button>
+                    <button class="btn btn-secondary" onclick="previewRecord()">Preview</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== RUN BACKUP TAB ==================== -->
+        <div id="run-backup" class="tab-content">
+            <h2>RUN BACKUP</h2>
+            <div class="card">
+                <div class="card-title">Database Backup</div>
+                <div class="backup-status">
+                    <p><strong>Last Backup:</strong> February 15, 2026 at 3:45 PM</p>
+                    <p><strong>Backup Location:</strong> /backups/oil-coop-backup-20260215.db</p>
+                </div>
+                <div class="action-buttons mt-20">
+                    <button class="btn btn-primary" onclick="runBackup()">Run Backup Now</button>
+                    <button class="btn btn-secondary" onclick="scheduleBackup()">Schedule Backup</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">Backup History</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Size</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>02/15/2026 3:45 PM</td>
+                            <td>2.4 MB</td>
+                            <td><span class="badge badge-success">Success</span></td>
+                        </tr>
+                        <tr>
+                            <td>02/14/2026 3:45 PM</td>
+                            <td>2.3 MB</td>
+                            <td><span class="badge badge-success">Success</span></td>
+                        </tr>
+                        <tr>
+                            <td>02/13/2026 3:45 PM</td>
+                            <td>2.3 MB</td>
+                            <td><span class="badge badge-success">Success</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ==================== REFUND LETTER TAB ==================== -->
+        <div id="refund-letter" class="tab-content">
+            <h2>REFUND LETTER</h2>
+            <div class="card">
+                <div class="card-title">Generate Refund Letter</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Member Name</label>
+                        <input type="text" value="Chris Marolda" readonly class="readonly-field">
+                    </div>
+                    <div class="form-group">
+                        <label>Refund Amount</label>
+                        <input type="text" id="refundAmount" placeholder="$0.00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Reason for Refund</label>
+                    <textarea id="refundReason" rows="3" placeholder="Enter reason for refund..."></textarea>
+                </div>
+                <div class="action-buttons mt-20">
+                    <button class="btn btn-primary" onclick="generateRefundLetter()">Generate Letter</button>
+                    <button class="btn btn-secondary" onclick="previewRefundLetter()">Preview</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== START DATE LETTER TAB ==================== -->
+        <div id="start-date-letter" class="tab-content">
+            <h2>START DATE LETTER</h2>
+            <div class="card">
+                <div class="card-title">Generate Start Date Letter</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Member Name</label>
+                        <input type="text" value="Chris Marolda" readonly class="readonly-field">
+                    </div>
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="date" id="letterStartDate">
+                    </div>
+                </div>
+                <div class="action-buttons mt-20">
+                    <button class="btn btn-primary" onclick="generateStartDateLetter()">Generate Letter</button>
+                    <button class="btn btn-secondary" onclick="previewStartDateLetter()">Preview</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== MULTIPLE REFERRAL LETTER TAB ==================== -->
+        <div id="multiple-referral-letter" class="tab-content">
+            <h2>Multiple Referral Letter</h2>
+            <div class="card">
+                <div class="card-title">Generate Multiple Referral Letters</div>
+                <div class="form-group">
+                    <label>Select Members</label>
+                    <select multiple id="referralLetterMembers" size="5">
+                        <option value="1">Chris Marolda</option>
+                        <option value="2">Jane Wilson</option>
+                        <option value="3">Robert Smith</option>
+                        <option value="4">Michael Brown</option>
+                        <option value="5">Sarah Johnson</option>
+                    </select>
+                </div>
+                <div class="action-buttons mt-20">
+                    <button class="btn btn-primary" onclick="generateMultipleReferralLetters()">Generate Letters</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== RENEWAL MAILING TAB ==================== -->
+        <div id="renewal-mailing" class="tab-content">
+            <h2>Renewal Mailing</h2>
+            <div class="card">
+                <div class="card-title">Generate Renewal Mailing</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Billing Year</label>
+                        <select id="renewalYear">
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Mailing Date</label>
+                        <input type="date" id="renewalMailingDate">
+                    </div>
+                </div>
+                <div class="checkbox-row">
+                    <label><input type="checkbox" checked> Include members due for renewal</label>
+                    <label><input type="checkbox"> Include lifetime members</label>
+                </div>
+                <div class="action-buttons mt-20">
+                    <button class="btn btn-primary" onclick="generateRenewalMailing()">Generate Mailing</button>
+                    <button class="btn btn-secondary" onclick="previewRenewalList()">Preview List</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PROSPECTIVE MAILING TAB ==================== -->
+        <div id="prospective-mailing" class="tab-content">
+            <h2>Prospective Mailing</h2>
+            <div class="card">
+                <div class="card-title">Generate Prospective Member Mailing</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Mailing Date</label>
+                        <input type="date" id="prospectiveMailingDate">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Target Audience</label>
+                    <div class="checkbox-row">
+                        <label><input type="checkbox" checked> Prospective Members</label>
+                        <label><input type="checkbox"> Recent Inquiries</label>
+                        <label><input type="checkbox"> Referrals</label>
+                    </div>
+                </div>
+                <div class="action-buttons mt-20">
+                    <button class="btn btn-primary" onclick="generateProspectiveMailing()">Generate Mailing</button>
+                    <button class="btn btn-secondary" onclick="previewProspectiveList()">Preview List</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODALS ==================== -->
+    <!-- Add Company Modal -->
+    <div id="addCompanyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Oil Company</h3>
+                <button class="modal-close" onclick="hideModal('addCompanyModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Company Code</label>
+                    <input type="text" id="newCoCode" maxlength="10">
+                </div>
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" id="newCoName">
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" id="newCoPhone">
+                </div>
+                <div class="form-group">
+                    <label>Contact Person</label>
+                    <input type="text" id="newCoContact">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="hideModal('addCompanyModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveNewCompany()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact History Modal -->
+    <div id="contactHistoryModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>Contact History - Chris Marolda</h3>
+                <button class="modal-close" onclick="hideModal('contactHistoryModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Notes</th>
+                            <th>Staff</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>02/10/2026</td>
+                            <td>Phone Call</td>
+                            <td>Discussed renewal options</td>
+                            <td>Admin</td>
+                        </tr>
+                        <tr>
+                            <td>01/15/2026</td>
+                            <td>Email</td>
+                            <td>Sent renewal reminder</td>
+                            <td>Admin</td>
+                        </tr>
+                        <tr>
+                            <td>11/20/2025</td>
+                            <td>Phone Call</td>
+                            <td>Confirmed delivery schedule</td>
+                            <td>Admin</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group mt-20">
+                    <label>Add New Contact</label>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <select id="newContactType">
+                                <option>Phone Call</option>
+                                <option>Email</option>
+                                <option>Mail</option>
+                                <option>In Person</option>
+                            </select>
+                        </div>
+                        <div class="form-group flex-grow">
+                            <input type="text" id="newContactNotes" placeholder="Notes...">
+                        </div>
+                        <button class="btn btn-primary" onclick="addContact()">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="hideModal('contactHistoryModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delivery History Modal -->
+    <div id="deliveryHistoryModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>Delivery History - Chris Marolda</h3>
+                <button class="modal-close" onclick="hideModal('deliveryHistoryModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Gallons</th>
+                            <th>Price/Gal</th>
+                            <th>Total</th>
+                            <th>Oil Company</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>02/05/2026</td>
+                            <td>150</td>
+                            <td>$3.29</td>
+                            <td>$493.50</td>
+                            <td>PETRO</td>
+                        </tr>
+                        <tr>
+                            <td>12/15/2025</td>
+                            <td>175</td>
+                            <td>$3.35</td>
+                            <td>$586.25</td>
+                            <td>PETRO</td>
+                        </tr>
+                        <tr>
+                            <td>10/20/2025</td>
+                            <td>125</td>
+                            <td>$3.19</td>
+                            <td>$398.75</td>
+                            <td>PETRO</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="hideModal('deliveryHistoryModal')">Close</button>
+                <button class="btn btn-primary" onclick="printDeliveryHistory()">Print</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Oil Co Info Modal -->
+    <div id="oilCoInfoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Oil Company Information</h3>
+                <button class="modal-close" onclick="hideModal('oilCoInfoModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="info-grid">
+                    <div class="info-item"><label>Company:</label><span>Petro Home Services</span></div>
+                    <div class="info-item"><label>Code:</label><span>PETRO</span></div>
+                    <div class="info-item"><label>Phone:</label><span>(800) 645-4328</span></div>
+                    <div class="info-item"><label>Contact:</label><span>Customer Service</span></div>
+                    <div class="info-item"><label>Address:</label><span>100 Main Street, Hartford, CT</span></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="hideModal('oilCoInfoModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert/Notification Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
