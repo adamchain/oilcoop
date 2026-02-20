@@ -244,6 +244,17 @@ body {
     justify-content: flex-start;
 }
 
+/* Compact form rows and inputs (Contact Info) */
+.form-row-compact { margin-bottom: 6px; }
+.form-group-compact { margin-bottom: 4px; }
+.form-group-compact label { margin-bottom: 1px; }
+.input-compact {
+    padding: 3px 6px;
+    font-size: 11px;
+}
+.contact-info-card .form-group { min-width: 0; }
+.button-row-compact { margin: 6px 0; }
+
 label {
     font-size: 10px;
     font-weight: bold;
@@ -295,6 +306,10 @@ textarea {
 .status-row > label {
     font-weight: bold;
     margin-bottom: 0;
+}
+
+.status-row-propane .prop-co-info-btn {
+    margin-left: auto;
 }
 
 /* ==================== RADIO & CHECKBOX ==================== */

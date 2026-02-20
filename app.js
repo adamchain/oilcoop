@@ -331,11 +331,30 @@ let filteredMembers = [...sampleMembers];
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', function() {
     initTabs();
+    // Auto-insert oil start date when oil co code or oil ID is set (if field is empty)
+    initOilStartDateAutoInsert();
     loadMember(0);
     updateMembersList();
     updateRecordCount();
     updateStats();
 });
+
+// When user sets oil co code or oil ID, auto-fill oil start date if it's empty (for new records).
+// Backend would typically set this from enrollment date or first delivery; here we default to today.
+function initOilStartDateAutoInsert() {
+    const oilStartEl = document.getElementById('oilStartDate');
+    const oilCoCodeEl = document.getElementById('oilCoCode');
+    const oilIdEl = document.getElementById('oilId');
+    if (!oilStartEl || (!oilCoCodeEl && !oilIdEl)) return;
+    function maybeSetOilStartDate() {
+        if (oilStartEl.value) return;
+        const code = oilCoCodeEl ? oilCoCodeEl.value : '';
+        const id = oilIdEl ? oilIdEl.value.trim() : '';
+        if (code || id) oilStartEl.value = new Date().toISOString().split('T')[0];
+    }
+    if (oilCoCodeEl) oilCoCodeEl.addEventListener('change', maybeSetOilStartDate);
+    if (oilIdEl) oilIdEl.addEventListener('change', maybeSetOilStartDate);
+}
 
 // ==================== TAB NAVIGATION ====================
 function initTabs() {
@@ -397,7 +416,6 @@ function loadMember(index) {
     document.getElementById('recType').value = member.recType;
     document.getElementById('newMemberDate').value = member.newMemberDate;
     document.getElementById('originalStartDate').value = member.originalStartDate;
-    document.getElementById('cluster').value = member.cluster;
     document.getElementById('senior').checked = member.senior;
     document.getElementById('firstName1').value = member.firstName1;
     document.getElementById('midName1').value = member.midName1;
@@ -428,6 +446,10 @@ function loadMember(index) {
     document.getElementById('phone3Type').value = member.phone3Type;
     document.getElementById('phone3Ext').value = member.phone3Ext;
     document.getElementById('email').value = member.email;
+    const email2El = document.getElementById('email2');
+    if (email2El) email2El.value = member.email2 || '';
+    const contactNoteEl = document.getElementById('contactNote');
+    if (contactNoteEl) contactNoteEl.value = member.contactNote || '';
     document.getElementById('oilCoCode').value = member.oilCoCode || 'PETRO';
     document.getElementById('oilId').value = member.oilId;
     document.getElementById('propCoCode').value = member.propCoCode || 'THOM';
@@ -435,6 +457,13 @@ function loadMember(index) {
     document.getElementById('howJoined').value = member.howJoined || 'PHO';
     document.getElementById('referral').value = member.referral || 'CCAG';
 
+    // Oil status (in Oil Company card)
+    const oilStatusVal = member.oilStatus || member.status || 'ACTIVE';
+    const oilStatusRadio = document.querySelector(`input[name="oilStatus"][value="${oilStatusVal}"]`);
+    if (oilStatusRadio) oilStatusRadio.checked = true;
+    // Oil start date: auto-insert when oil co code or ID is set (see initOilStartDateAutoInsert in DOMContentLoaded)
+    const oilStartEl = document.getElementById('oilStartDate');
+    if (oilStartEl) oilStartEl.value = member.oilStartDate || '';
     // Propane status
     const propaneRadio = document.querySelector(`input[name="propaneStatus"][value="${member.propaneStatus}"]`);
     if (propaneRadio) propaneRadio.checked = true;

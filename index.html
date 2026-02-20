@@ -100,10 +100,6 @@
                                 <label>Original Start Date</label>
                                 <input type="date" id="originalStartDate" value="2005-01-18">
                             </div>
-                            <div class="form-group">
-                                <label>CLUSTER</label>
-                                <input type="text" id="cluster" value="10">
-                            </div>
                             <div class="form-group checkbox-inline">
                                 <label><input type="checkbox" id="senior"> SENIOR</label>
                             </div>
@@ -193,11 +189,6 @@
                             </div>
                         </div>
 
-                        <div class="checkbox-row">
-                            <label><input type="checkbox" id="ppau"> PP&U</label>
-                            <label><input type="checkbox" id="starion"> Starion</label>
-                        </div>
-
                         <div class="form-group">
                             <label>NOTE</label>
                             <textarea id="note" rows="2"></textarea>
@@ -268,96 +259,122 @@
                 <!-- Right Column -->
                 <div class="column">
                     <!-- Contact Information Card -->
-                    <div class="card">
+                    <div class="card contact-info-card">
                         <div class="card-title">Contact Information</div>
 
-                        <div class="form-row">
-                            <div class="form-group">
+                        <div class="form-row form-row-compact">
+                            <div class="form-group form-group-compact">
                                 <label>PHONE_1</label>
-                                <input type="tel" id="phone1" value="(860) 828-7559">
+                                <input type="tel" id="phone1" value="(860) 828-7559" class="input-compact">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group form-group-compact">
                                 <label>TYPE OF PHONE1</label>
-                                <select id="phone1Type">
+                                <select id="phone1Type" class="input-compact">
                                     <option value="HOME" selected>HOME</option>
                                     <option value="WORK">WORK</option>
                                     <option value="CELL">CELL</option>
                                 </select>
                             </div>
-                            <div class="form-group small">
+                            <div class="form-group form-group-compact small">
                                 <label>P1 EXT</label>
-                                <input type="text" id="phone1Ext">
+                                <input type="text" id="phone1Ext" class="input-compact">
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
+                        <div class="form-row form-row-compact">
+                            <div class="form-group form-group-compact">
                                 <label>PHONE_2</label>
-                                <input type="tel" id="phone2" value="(860) 233-2181">
+                                <input type="tel" id="phone2" value="(860) 233-2181" class="input-compact">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group form-group-compact">
                                 <label>TYPE OF PHONE2</label>
-                                <select id="phone2Type">
+                                <select id="phone2Type" class="input-compact">
                                     <option value="HOME">HOME</option>
                                     <option value="WORK" selected>WORK</option>
                                     <option value="CELL">CELL</option>
                                 </select>
                             </div>
-                            <div class="form-group small">
+                            <div class="form-group form-group-compact small">
                                 <label>P2 EXT</label>
-                                <input type="text" id="phone2Ext" value="309">
+                                <input type="text" id="phone2Ext" value="309" class="input-compact">
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
+                        <div class="form-row form-row-compact">
+                            <div class="form-group form-group-compact">
                                 <label>PHONE_3</label>
-                                <input type="tel" id="phone3">
+                                <input type="tel" id="phone3" class="input-compact">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group form-group-compact">
                                 <label>TYPE OF PHONE3</label>
-                                <select id="phone3Type">
+                                <select id="phone3Type" class="input-compact">
                                     <option value=""></option>
                                     <option value="HOME">HOME</option>
                                     <option value="WORK">WORK</option>
                                     <option value="CELL">CELL</option>
                                 </select>
                             </div>
-                            <div class="form-group small">
+                            <div class="form-group form-group-compact small">
                                 <label>P3 EXT</label>
-                                <input type="text" id="phone3Ext">
+                                <input type="text" id="phone3Ext" class="input-compact">
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group flex-grow">
+                        <div class="form-row form-row-compact">
+                            <div class="form-group form-group-compact flex-grow">
                                 <label>E_MAIL</label>
-                                <input type="email" id="email" value="chris@ccag.net">
+                                <input type="email" id="email" value="chris@ccag.net" class="input-compact">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group form-group-compact">
                                 <label>&nbsp;</label>
                                 <span class="opted-out-label">- Opted Out</span>
                             </div>
                         </div>
 
-                        <div class="button-row">
-                            <button class="btn btn-secondary" onclick="useBothNames()">Use Both Names</button>
-                            <button class="btn btn-primary" onclick="showMailAddress()">MAIL ADDR</button>
+                        <div class="form-row form-row-compact">
+                            <div class="form-group form-group-compact">
+                                <label>E_MAIL 2</label>
+                                <input type="email" id="email2" class="input-compact">
+                            </div>
                         </div>
 
-                        <div class="button-row">
+                        <div class="button-row button-row-compact">
+                            <button class="btn btn-secondary btn-sm" onclick="useBothNames()">Use Both Names</button>
+                            <button class="btn btn-primary btn-sm" onclick="showMailAddress()">Mail Addr</button>
+                        </div>
+
+                        <div class="button-row form-row-compact">
                             <label><input type="checkbox" id="callBack"> CALL BACK</label>
-                            <div class="form-group inline-small">
+                            <div class="form-group form-group-compact inline-small">
                                 <label>CALL BACK DATE</label>
-                                <input type="date" id="callBackDate">
+                                <input type="date" id="callBackDate" class="input-compact">
                             </div>
+                        </div>
+
+                        <div class="form-group form-group-compact mt-10">
+                            <label>NOTE</label>
+                            <textarea id="contactNote" rows="2" class="input-compact"></textarea>
                         </div>
                     </div>
 
-                    <!-- Oil Company Card -->
+                    <!-- Oil Company Information -->
                     <div class="card">
                         <div class="card-title">Oil Company Information</div>
 
+                        <!-- Oil status buttons first -->
+                        <div class="status-row">
+                            <label>Status:</label>
+                            <div class="radio-group inline">
+                                <label class="radio-label"><input type="radio" name="oilStatus" value="ACTIVE" checked> <span class="status-active">ACTIVE</span></label>
+                                <label class="radio-label"><input type="radio" name="oilStatus" value="INACTIVE"> <span class="status-inactive">INACTIVE</span></label>
+                                <label class="radio-label"><input type="radio" name="oilStatus" value="PROSPECTIVE"> <span class="status-prospective">PROSPECTIVE</span></label>
+                                <label class="radio-label"><input type="radio" name="oilStatus" value="RESIDENT"> RESIDENT</label>
+                                <label class="radio-label"><input type="radio" name="oilStatus" value="NO OIL"> NO OIL</label>
+                                <label class="radio-label"><input type="radio" name="oilStatus" value="UNKNOWN"> <span class="status-unknown">UNKNOWN</span></label>
+                            </div>
+                        </div>
+
+                        <!-- Oil co code, Oil ID, OIL CO INFO in one row. Auto-insert oil start date (see app.js: setOilStartDateWhenCodeOrIdChange) -->
                         <div class="form-row">
                             <div class="form-group">
                                 <label>OIL CO CODE</label>
@@ -368,24 +385,18 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-info" onclick="showOilCoInfo()">OIL CO INFO</button>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-warning" onclick="showPropCoInfo()">PROP CO INFO</button>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
                                 <label>OIL_ID</label>
                                 <input type="text" id="oilId" value="6550778">
                             </div>
                             <div class="form-group">
-                                <label>PROP CO CODE</label>
-                                <select id="propCoCode">
-                                    <option value="THOM" selected>THOM</option>
-                                    <option value="AMERIGAS">AMERIGAS</option>
-                                </select>
+                                <label>&nbsp;</label>
+                                <button class="btn btn-info" onclick="showOilCoInfo()">OIL CO INFO</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Oil Start Date</label>
+                                <input type="date" id="oilStartDate" readonly class="readonly-field" title="Auto-filled when oil co code or oil ID is set (see code comment in app.js)">
                             </div>
                         </div>
 
@@ -408,82 +419,52 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Propane Status Card -->
-                    <div class="card">
-                        <div class="card-title highlight-red">PROPANE STATUS</div>
-                        <div class="radio-group vertical">
-                            <label class="radio-label"><input type="radio" name="propaneStatus" value="ACTIVE"> <span class="status-active">ACTIVE</span></label>
-                            <label class="radio-label"><input type="radio" name="propaneStatus" value="INACTIVE"> <span class="status-inactive">INACTIVE</span></label>
-                            <label class="radio-label"><input type="radio" name="propaneStatus" value="PROSPECTIVE" checked> <span class="status-prospective">PROSPECTIVE</span></label>
-                            <label class="radio-label"><input type="radio" name="propaneStatus" value="RESIDENT"> RESIDENT</label>
-                            <label class="radio-label"><input type="radio" name="propaneStatus" value="NO PROPANE"> NO PROPANE</label>
-                            <label class="radio-label"><input type="radio" name="propaneStatus" value="UNKNOWN"> <span class="status-unknown">UNKNOWN</span></label>
+                        <!-- Propane Company Info: status buttons with PROP CO INFO on right -->
+                        <div class="card-title" style="margin-top: 14px;">Propane Company Info</div>
+                        <div class="status-row status-row-propane">
+                            <label>Propane Status:</label>
+                            <div class="radio-group inline">
+                                <label class="radio-label"><input type="radio" name="propaneStatus" value="ACTIVE"> <span class="status-active">ACTIVE</span></label>
+                                <label class="radio-label"><input type="radio" name="propaneStatus" value="INACTIVE"> <span class="status-inactive">INACTIVE</span></label>
+                                <label class="radio-label"><input type="radio" name="propaneStatus" value="PROSPECTIVE" checked> <span class="status-prospective">PROSPECTIVE</span></label>
+                                <label class="radio-label"><input type="radio" name="propaneStatus" value="RESIDENT"> RESIDENT</label>
+                                <label class="radio-label"><input type="radio" name="propaneStatus" value="NO PROPANE"> NO PROPANE</label>
+                                <label class="radio-label"><input type="radio" name="propaneStatus" value="UNKNOWN"> <span class="status-unknown">UNKNOWN</span></label>
+                            </div>
+                            <button class="btn btn-warning btn-sm prop-co-info-btn" onclick="showPropCoInfo()">PROP CO INFO</button>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label>PROPANE START DATE</label>
-                                <input type="date" id="propaneStartDate">
+                                <label>PROP CO CODE</label>
+                                <select id="propCoCode">
+                                    <option value="THOM" selected>THOM</option>
+                                    <option value="AMERIGAS">AMERIGAS</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>PROPANE ID</label>
                                 <input type="text" id="propaneId">
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Oil Program Card -->
-                    <div class="card">
-                        <div class="card-title">Oil Program</div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Oil Program</th>
-                                    <th>EST GALLONS</th>
-                                    <th>Rate</th>
-                                    <th>Heating Year</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="oilProgramTable">
-                                <tr>
-                                    <td><select><option>FLOAT</option><option>CAP</option><option>FIXED</option></select></td>
-                                    <td><input type="text"></td>
-                                    <td><input type="text"></td>
-                                    <td><select><option>2020</option><option>2021</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option></select></td>
-                                    <td><button class="btn btn-danger btn-sm">DEL</button></td>
-                                </tr>
-                                <tr>
-                                    <td><select><option>FLOAT</option></select></td>
-                                    <td><input type="text"></td>
-                                    <td><input type="text"></td>
-                                    <td><select><option>2019</option><option selected>2019</option></select></td>
-                                    <td><button class="btn btn-danger btn-sm">DEL</button></td>
-                                </tr>
-                                <tr>
-                                    <td><select><option>FLOAT</option></select></td>
-                                    <td><input type="text"></td>
-                                    <td><input type="text"></td>
-                                    <td><select><option selected>2018</option></select></td>
-                                    <td><button class="btn btn-danger btn-sm">DEL</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="checkbox-row mt-10">
-                            <label><input type="checkbox" id="contactHistory"> CONTACT HISTORY</label>
-                            <label><input type="checkbox" id="deliveryHistory" checked> DELIVERY HISTORY</label>
-                            <label><input type="checkbox" id="nrdOil"> NRD-Oil</label>
-                            <label><input type="checkbox" id="nrdProp"> NRD-Prop</label>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>PROPANE START DATE</label>
+                                <input type="date" id="propaneStartDate">
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Action Buttons -->
+                    <!-- Delivery Status (replaces Oil Program); delivery history + 3rd-oil + 3rd-prop -->
                     <div class="card">
-                        <div class="button-row">
-                            <button class="btn btn-danger" onclick="showContactHistory()">CONTACT HISTORY</button>
-                            <button class="btn btn-danger" onclick="showDeliveryHistory()">DELIVERY HISTORY</button>
-                            <button class="btn btn-primary" onclick="showDeliveryReports()">Delivery Reports</button>
+                        <div class="card-title">Delivery Status</div>
+                        <div class="checkbox-row">
+                            <label><input type="checkbox" id="deliveryHistory" checked> Delivery History</label>
+                            <label><input type="checkbox" id="nrdOil"> 3rd-Oil</label>
+                            <label><input type="checkbox" id="nrdProp"> 3rd-Prop</label>
+                        </div>
+                        <div class="button-row mt-10">
+                            <button class="btn btn-danger btn-sm" onclick="showDeliveryHistory()">DELIVERY HISTORY</button>
                         </div>
                     </div>
                 </div>
