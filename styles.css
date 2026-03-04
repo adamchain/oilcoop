@@ -28,6 +28,29 @@ body {
     font-weight: bold;
     color: #800000;
     text-shadow: 1px 1px 0 #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.feedback-icon {
+    color: #0066cc;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.feedback-icon:hover {
+    background-color: rgba(0, 102, 204, 0.1);
+    color: #004499;
+}
+
+.feedback-icon svg {
+    width: 20px;
+    height: 20px;
 }
 
 .header-right {
@@ -226,6 +249,49 @@ body {
 .form-group.small {
     flex: 0 0 80px;
     min-width: 60px;
+}
+
+/* Extra small form groups for ID/REC_TYPE fields */
+.form-group-xs {
+    flex: 0 0 60px;
+    min-width: 50px;
+}
+
+.form-group-sm {
+    flex: 0 0 120px;
+    min-width: 100px;
+}
+
+.input-xs {
+    font-size: 11px;
+    padding: 3px 4px;
+    max-width: 70px;
+}
+
+.input-sm {
+    font-size: 11px;
+    padding: 3px 4px;
+}
+
+.compact-row {
+    margin-bottom: 6px;
+}
+
+/* Oil code wrapper with add button */
+.oil-code-wrapper {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.oil-code-wrapper select {
+    flex: 1;
+}
+
+.oil-code-wrapper .btn {
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .form-group.flex-grow {

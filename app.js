@@ -565,15 +565,59 @@ function filterMemberList() {
 // ==================== SEARCH & FILTER ====================
 function handleSearch(event) {
     if (event.key === 'Enter') {
-        const searchTerm = document.getElementById('globalSearch').value.toLowerCase();
+        const searchTerm = document.getElementById('globalSearch').value.toLowerCase().trim();
         if (searchTerm === '') {
             filteredMembers = [...sampleMembers];
         } else {
-            filteredMembers = sampleMembers.filter(member =>
-                `${member.firstName1} ${member.lastName1}`.toLowerCase().includes(searchTerm) ||
-                member.phone1.includes(searchTerm) ||
-                member.id.toString() === searchTerm
-            );
+            filteredMembers = sampleMembers.filter(member => {
+                // Search through all member fields
+                const searchableFields = [
+                    member.id.toString(),
+                    member.firstName1,
+                    member.midName1,
+                    member.lastName1,
+                    member.suffix1,
+                    member.firstName2,
+                    member.midName2,
+                    member.lastName2,
+                    member.suffix2,
+                    member.streetNo,
+                    member.streetName,
+                    member.aptNo,
+                    member.addressLine2,
+                    member.city,
+                    member.state,
+                    member.zip,
+                    member.plus4,
+                    member.company,
+                    member.note,
+                    member.employer,
+                    member.phone1,
+                    member.phone2,
+                    member.phone3,
+                    member.email,
+                    member.oilCoCode,
+                    member.oilId,
+                    member.propCoCode,
+                    member.propaneId,
+                    member.status,
+                    member.recType,
+                    member.howJoined,
+                    member.referral,
+                    member.electricStatus,
+                    member.nameKey,
+                    member.electricityAccountNumber,
+                    member.nextStep,
+                    member.paymentNotes,
+                    member.newMemberDate,
+                    member.originalStartDate
+                ];
+
+                // Check if any field contains the search term
+                return searchableFields.some(field =>
+                    field && field.toString().toLowerCase().includes(searchTerm)
+                );
+            });
         }
         if (filteredMembers.length > 0) {
             currentMemberIndex = 0;
@@ -831,11 +875,182 @@ function useBothNames() {
 
 function showMailAddress() {
     const member = filteredMembers[currentMemberIndex];
-    alert(`Mailing Address:\n\n${member.firstName1} ${member.lastName1}\n${member.streetNo} ${member.streetName}\n${member.city}, ${member.state} ${member.zip}`);
+    // Populate modal fields
+    document.getElementById('mailStreetNo').value = member.streetNo || '';
+    document.getElementById('mailStreetName').value = member.streetName || '';
+    document.getElementById('mailAptNo').value = member.aptNo || '';
+    document.getElementById('mailAddressLine2').value = member.addressLine2 || '';
+    document.getElementById('mailCity').value = member.city || '';
+    document.getElementById('mailState').value = member.state || '';
+    document.getElementById('mailZip').value = member.zip || '';
+    document.getElementById('mailPlus4').value = member.plus4 || '';
+    document.getElementById('mailRecipient').value = `${member.firstName1} ${member.lastName1}`;
+    document.getElementById('isPrimaryAddress').checked = member.isPrimaryAddress !== false;
+    showModal('mailAddressModal');
 }
 
+function saveMailAddress() {
+    const member = filteredMembers[currentMemberIndex];
+    member.streetNo = document.getElementById('mailStreetNo').value;
+    member.streetName = document.getElementById('mailStreetName').value;
+    member.aptNo = document.getElementById('mailAptNo').value;
+    member.addressLine2 = document.getElementById('mailAddressLine2').value;
+    member.city = document.getElementById('mailCity').value;
+    member.state = document.getElementById('mailState').value;
+    member.zip = document.getElementById('mailZip').value;
+    member.plus4 = document.getElementById('mailPlus4').value;
+    member.isPrimaryAddress = document.getElementById('isPrimaryAddress').checked;
+
+    // Update the main form fields
+    document.getElementById('streetNo').value = member.streetNo;
+    document.getElementById('streetName').value = member.streetName;
+    document.getElementById('aptNo').value = member.aptNo;
+    document.getElementById('addressLine2').value = member.addressLine2;
+    document.getElementById('city').value = member.city;
+    document.getElementById('state').value = member.state;
+    document.getElementById('zip').value = member.zip;
+    document.getElementById('plus4').value = member.plus4;
+
+    hideModal('mailAddressModal');
+    showToast('Mail address updated successfully', 'success');
+}
+
+// Oil company data store
+const oilCompanies = [
+    { code: 'PETRO', name: 'Petro Home Services', phone: '(800) 645-4328', contact: 'Customer Service', address: '100 Main Street, Hartford, CT', email: '', notes: '' },
+    { code: 'HOCON', name: 'Hocon Gas', phone: '(860) 693-8388', contact: 'Service Desk', address: '', email: '', notes: '' },
+    { code: 'DZEN', name: 'Dzen Oil Company', phone: '(860) 621-6627', contact: 'Main Office', address: '', email: '', notes: '' }
+];
+
 function showOilCoInfo() {
+    const selectedCode = document.getElementById('oilCoCode').value;
+    const company = oilCompanies.find(c => c.code === selectedCode) || oilCompanies[0];
+
+    document.getElementById('oilCoName').value = company.name || '';
+    document.getElementById('oilCoCodeEdit').value = company.code || '';
+    document.getElementById('oilCoPhone').value = company.phone || '';
+    document.getElementById('oilCoContact').value = company.contact || '';
+    document.getElementById('oilCoAddress').value = company.address || '';
+    document.getElementById('oilCoEmail').value = company.email || '';
+    document.getElementById('oilCoNotes').value = company.notes || '';
+
     showModal('oilCoInfoModal');
+}
+
+function saveOilCoInfo() {
+    const code = document.getElementById('oilCoCodeEdit').value;
+    const company = oilCompanies.find(c => c.code === code);
+
+    if (company) {
+        company.name = document.getElementById('oilCoName').value;
+        company.phone = document.getElementById('oilCoPhone').value;
+        company.contact = document.getElementById('oilCoContact').value;
+        company.address = document.getElementById('oilCoAddress').value;
+        company.email = document.getElementById('oilCoEmail').value;
+        company.notes = document.getElementById('oilCoNotes').value;
+
+        hideModal('oilCoInfoModal');
+        showToast('Oil company info updated successfully', 'success');
+    }
+}
+
+function showManageOilCodes() {
+    updateOilCodesTable();
+    showModal('manageOilCodesModal');
+}
+
+function updateOilCodesTable() {
+    const tbody = document.getElementById('oilCodesTableBody');
+    tbody.innerHTML = '';
+
+    oilCompanies.forEach(company => {
+        const row = document.createElement('tr');
+        row.setAttribute('data-code', company.code);
+        row.innerHTML = `
+            <td>${company.code}</td>
+            <td>${company.name}</td>
+            <td>${company.phone}</td>
+            <td>${company.contact}</td>
+            <td>
+                <button class="btn btn-sm btn-secondary" onclick="editOilCode('${company.code}')">Edit</button>
+                <button class="btn btn-sm btn-danger" onclick="deleteOilCode('${company.code}')">Del</button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function editOilCode(code) {
+    hideModal('manageOilCodesModal');
+    document.getElementById('oilCoCode').value = code;
+    showOilCoInfo();
+}
+
+function deleteOilCode(code) {
+    if (confirm(`Are you sure you want to delete oil company ${code}?`)) {
+        const index = oilCompanies.findIndex(c => c.code === code);
+        if (index > -1) {
+            oilCompanies.splice(index, 1);
+            updateOilCodesTable();
+            updateOilCoCodeDropdowns();
+            showToast(`Oil company ${code} deleted`, 'success');
+        }
+    }
+}
+
+function addNewOilCode() {
+    const code = document.getElementById('newOilCodeCode').value.toUpperCase().trim();
+    const name = document.getElementById('newOilCodeName').value.trim();
+    const phone = document.getElementById('newOilCodePhone').value.trim();
+    const contact = document.getElementById('newOilCodeContact').value.trim();
+
+    if (!code || !name) {
+        showToast('Code and Company Name are required', 'error');
+        return;
+    }
+
+    if (oilCompanies.find(c => c.code === code)) {
+        showToast('Oil company code already exists', 'error');
+        return;
+    }
+
+    oilCompanies.push({
+        code: code,
+        name: name,
+        phone: phone,
+        contact: contact,
+        address: '',
+        email: '',
+        notes: ''
+    });
+
+    // Clear form
+    document.getElementById('newOilCodeCode').value = '';
+    document.getElementById('newOilCodeName').value = '';
+    document.getElementById('newOilCodePhone').value = '';
+    document.getElementById('newOilCodeContact').value = '';
+
+    updateOilCodesTable();
+    updateOilCoCodeDropdowns();
+    showToast(`Oil company ${code} added successfully`, 'success');
+}
+
+function updateOilCoCodeDropdowns() {
+    const dropdown = document.getElementById('oilCoCode');
+    const currentValue = dropdown.value;
+    dropdown.innerHTML = '';
+
+    oilCompanies.forEach(company => {
+        const option = document.createElement('option');
+        option.value = company.code;
+        option.textContent = company.code;
+        dropdown.appendChild(option);
+    });
+
+    // Restore selection if still valid
+    if (oilCompanies.find(c => c.code === currentValue)) {
+        dropdown.value = currentValue;
+    }
 }
 
 function showPropCoInfo() {
