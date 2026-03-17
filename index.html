@@ -70,70 +70,6 @@
             <div class="two-column-layout">
                 <!-- Left Column -->
                 <div class="column">
-                    <!-- Oil Company Status Card (moved to top) -->
-                    <div class="card">
-                        <div class="card-title">Oil Company Status</div>
-
-                        <!-- Oil status buttons first -->
-                        <div class="status-row">
-                            <label>Status:</label>
-                            <div class="radio-group inline">
-                                <label class="radio-label"><input type="radio" name="oilStatus" value="ACTIVE" checked> <span class="status-active">ACTIVE</span></label>
-                                <label class="radio-label"><input type="radio" name="oilStatus" value="INACTIVE"> <span class="status-inactive">INACTIVE</span></label>
-                                <label class="radio-label"><input type="radio" name="oilStatus" value="PROSPECTIVE"> <span class="status-prospective">PROSPECTIVE</span></label>
-                                <label class="radio-label"><input type="radio" name="oilStatus" value="RESIDENT"> RESIDENT</label>
-                                <label class="radio-label"><input type="radio" name="oilStatus" value="NO OIL"> NO OIL</label>
-                                <label class="radio-label"><input type="radio" name="oilStatus" value="UNKNOWN"> <span class="status-unknown">UNKNOWN</span></label>
-                            </div>
-                        </div>
-
-                        <!-- Oil co code, Oil ID, OIL CO INFO in one row -->
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>OIL CO CODE</label>
-                                <div class="oil-code-wrapper">
-                                    <select id="oilCoCode">
-                                        <option value="PETRO" selected>PETRO</option>
-                                        <option value="HOCON">HOCON</option>
-                                        <option value="DZEN">DZEN</option>
-                                    </select>
-                                    <button class="btn btn-sm btn-secondary" onclick="showManageOilCodes()" title="Add/Edit Oil Codes">+</button>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>OIL_ID</label>
-                                <input type="text" id="oilId" value="6550778">
-                            </div>
-                            <div class="form-group">
-                                <label>&nbsp;</label>
-                                <button class="btn btn-info" onclick="showOilCoInfo()">OIL CO INFO</button>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Oil Start Date</label>
-                                <input type="date" id="oilStartDate" readonly class="readonly-field" title="Auto-filled when oil co code or oil ID is set">
-                            </div>
-                            <div class="form-group">
-                                <label>HOW JOINED</label>
-                                <select id="howJoined">
-                                    <option value="PHO" selected>PHO</option>
-                                    <option value="WEB">WEB</option>
-                                    <option value="REF">REF</option>
-                                    <option value="MAIL">MAIL</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>REFERRAL</label>
-                                <select id="referral">
-                                    <option value="CCAG" selected>CCAG</option>
-                                    <option value="MEMBER">MEMBER</option>
-                                    <option value="OTHER">OTHER</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Member Identity Card -->
                     <div class="card">
                         <div class="card-title">Member Identity</div>
@@ -176,6 +112,8 @@
                             <div class="form-group checkbox-inline">
                                 <label><input type="checkbox" id="senior"> SENIOR</label>
                             </div>
+                            <button class="btn btn-secondary btn-sm" onclick="useBothNames()">Use Both Names</button>
+                            <button class="btn btn-primary btn-sm" onclick="showMailAddress()">Mail Addr</button>
                         </div>
 
                         <div class="form-row">
@@ -331,8 +269,72 @@
 
                 <!-- Right Column -->
                 <div class="column">
+                    <!-- Oil Company Status Card -->
+                    <div class="card card-compact">
+                        <div class="card-title">Oil Company Status</div>
+
+                        <!-- Oil status buttons first -->
+                        <div class="status-row">
+                            <label>Status:</label>
+                            <div class="radio-group inline">
+                                <label class="radio-label"><input type="radio" name="oilStatus" value="ACTIVE" checked> <span class="status-active">ACTIVE</span></label>
+                                <label class="radio-label"><input type="radio" name="oilStatus" value="INACTIVE"> <span class="status-inactive">INACTIVE</span></label>
+                                <label class="radio-label"><input type="radio" name="oilStatus" value="PROSPECTIVE"> <span class="status-prospective">PROSPECTIVE</span></label>
+                                <label class="radio-label"><input type="radio" name="oilStatus" value="RESIDENT"> RESIDENT</label>
+                                <label class="radio-label"><input type="radio" name="oilStatus" value="NO OIL"> NO OIL</label>
+                                <label class="radio-label"><input type="radio" name="oilStatus" value="UNKNOWN"> <span class="status-unknown">UNKNOWN</span></label>
+                            </div>
+                        </div>
+
+                        <!-- Oil co code, Oil ID, OIL CO INFO in one row -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>OIL CO CODE</label>
+                                <div class="oil-code-wrapper">
+                                    <select id="oilCoCode">
+                                        <option value="PETRO" selected>PETRO</option>
+                                        <option value="HOCON">HOCON</option>
+                                        <option value="DZEN">DZEN</option>
+                                    </select>
+                                    <button class="btn btn-sm btn-secondary" onclick="showManageOilCodes()" title="Add/Edit Oil Codes">+</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>OIL_ID</label>
+                                <input type="text" id="oilId" value="6550778">
+                            </div>
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-info" onclick="showOilCoInfo()">OIL CO INFO</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Oil Start Date</label>
+                                <input type="date" id="oilStartDate" readonly class="readonly-field" title="Auto-filled when oil co code or oil ID is set">
+                            </div>
+                            <div class="form-group">
+                                <label>HOW JOINED</label>
+                                <select id="howJoined">
+                                    <option value="PHO" selected>PHO</option>
+                                    <option value="WEB">WEB</option>
+                                    <option value="REF">REF</option>
+                                    <option value="MAIL">MAIL</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>REFERRAL</label>
+                                <select id="referral">
+                                    <option value="CCAG" selected>CCAG</option>
+                                    <option value="MEMBER">MEMBER</option>
+                                    <option value="OTHER">OTHER</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Contact Information Card -->
-                    <div class="card contact-info-card">
+                    <div class="card contact-info-card card-compact">
                         <div class="card-title">Contact Information</div>
 
                         <div class="form-row form-row-compact">
@@ -411,11 +413,6 @@
                             </div>
                         </div>
 
-                        <div class="button-row button-row-compact">
-                            <button class="btn btn-secondary btn-sm" onclick="useBothNames()">Use Both Names</button>
-                            <button class="btn btn-primary btn-sm" onclick="showMailAddress()">Mail Addr</button>
-                        </div>
-
                         <div class="button-row form-row-compact">
                             <label><input type="checkbox" id="callBack"> CALL BACK</label>
                             <div class="form-group form-group-compact inline-small">
@@ -471,8 +468,8 @@
                         <div class="card-title">Delivery Status</div>
                         <div class="checkbox-row">
                             <label><input type="checkbox" id="deliveryHistory" checked> Delivery History</label>
-                            <label><input type="checkbox" id="nrdOil"> 3rd-Oil</label>
-                            <label><input type="checkbox" id="nrdProp"> 3rd-Prop</label>
+                            <label><input type="checkbox" id="nrdOil"> NRD-Oil</label>
+                            <label><input type="checkbox" id="nrdProp"> NRD-Prop</label>
                         </div>
                         <div class="button-row mt-10">
                             <button class="btn btn-danger btn-sm" onclick="showDeliveryHistory()">DELIVERY HISTORY</button>
