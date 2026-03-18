@@ -763,6 +763,7 @@ let filteredMembers = [...sampleMembers];
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', function() {
     initTabs();
+    initUIMode();
     // Auto-insert oil start date when oil co code or oil ID is set (if field is empty)
     initOilStartDateAutoInsert();
     loadMember(0);
@@ -1819,6 +1820,39 @@ function formatReportDate(dateString) {
     const day = date.getDate();
     const year = date.getFullYear();
     return `${month}/${day}/${year}`;
+}
+
+// ==================== UI MODE TOGGLE ====================
+function switchUIMode(mode) {
+    const body = document.body;
+    const buttons = document.querySelectorAll('.ui-toggle-btn');
+
+    // Update button states
+    buttons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-ui') === mode) {
+            btn.classList.add('active');
+        }
+    });
+
+    // Toggle body class
+    if (mode === 'modern') {
+        body.classList.add('modern-ui');
+        localStorage.setItem('uiMode', 'modern');
+        showToast('Switched to Modern UI', 'success');
+    } else {
+        body.classList.remove('modern-ui');
+        localStorage.setItem('uiMode', 'legacy');
+        showToast('Switched to Legacy UI', 'success');
+    }
+}
+
+// Initialize UI mode from localStorage
+function initUIMode() {
+    const savedMode = localStorage.getItem('uiMode');
+    if (savedMode === 'modern') {
+        switchUIMode('modern');
+    }
 }
 
 // ==================== UTILITY FUNCTIONS ====================
