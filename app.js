@@ -68,6 +68,438 @@ const sampleMembers = [
             { year: '2023', waived: 'Yes', dateReceived: '2023-06-01', amount: '', method: '', type: 'Renew', checkNumber: '' }
         ]
     },
+    // Additional members for referral demo (IDs 1776 and 15900 referred by member 1)
+    {
+        id: 1776,
+        status: 'ACTIVE',
+        recType: 'IND',
+        newMemberDate: '2003-12-18',
+        originalStartDate: '2003-12-18',
+        cluster: '10',
+        senior: false,
+        firstName1: 'Evelyn',
+        midName1: '',
+        lastName1: 'Mantilla',
+        suffix1: '',
+        firstName2: '',
+        midName2: '',
+        lastName2: '',
+        suffix2: '',
+        streetNo: '55',
+        streetName: 'Garden Street',
+        aptNo: '',
+        addressLine2: '',
+        city: 'Hartford',
+        state: 'CT',
+        zip: '06105',
+        plus4: '',
+        company: '',
+        note: '',
+        employer: '',
+        phone1: '(860) 555-1776',
+        phone1Type: 'HOME',
+        phone1Ext: '',
+        phone2: '',
+        phone2Type: '',
+        phone2Ext: '',
+        phone3: '',
+        phone3Type: '',
+        phone3Ext: '',
+        email: 'emantilla@email.com',
+        emailOptedOut: false,
+        oilCoCode: 'PETRO',
+        oilId: '7771776',
+        propCoCode: '',
+        propaneId: '',
+        propaneStatus: 'NO PROPANE',
+        howJoined: 'REF',
+        referral: 'MEMBER',
+        electricStatus: 'UNKNOWN',
+        elecSignUpDate: '',
+        elecStartDate: '',
+        nameKey: 'MANT',
+        droppedDate: '',
+        electricityAccountNumber: '',
+        nextStep: '',
+        referredById: '1',
+        dateReferred: '2003-12-18',
+        registrationFee: '10',
+        dtPaid: '2003-12-18',
+        checkCredit: '1234',
+        lifetimeMember: false,
+        paymentNotes: '',
+        renewals: []
+    },
+    {
+        id: 15900,
+        status: 'ACTIVE',
+        recType: 'IND',
+        newMemberDate: '2025-04-28',
+        originalStartDate: '2025-04-28',
+        cluster: '10',
+        senior: false,
+        firstName1: 'Patrick',
+        midName1: '',
+        lastName1: 'Hemingway',
+        suffix1: '',
+        firstName2: '',
+        midName2: '',
+        lastName2: '',
+        suffix2: '',
+        streetNo: '100',
+        streetName: 'Oak Lane',
+        aptNo: '',
+        addressLine2: '',
+        city: 'Berlin',
+        state: 'CT',
+        zip: '06037',
+        plus4: '',
+        company: '',
+        note: '',
+        employer: '',
+        phone1: '(860) 555-1590',
+        phone1Type: 'HOME',
+        phone1Ext: '',
+        phone2: '',
+        phone2Type: '',
+        phone2Ext: '',
+        phone3: '',
+        phone3Type: '',
+        phone3Ext: '',
+        email: 'phemingway@email.com',
+        emailOptedOut: false,
+        oilCoCode: 'HOCON',
+        oilId: '1590001',
+        propCoCode: '',
+        propaneId: '',
+        propaneStatus: 'NO PROPANE',
+        howJoined: 'REF',
+        referral: 'MEMBER',
+        electricStatus: 'UNKNOWN',
+        elecSignUpDate: '',
+        elecStartDate: '',
+        nameKey: 'HEMI',
+        droppedDate: '',
+        electricityAccountNumber: '',
+        nextStep: '',
+        referredById: '1',
+        dateReferred: '2025-04-28',
+        registrationFee: '10',
+        dtPaid: '2025-04-28',
+        checkCredit: '9876',
+        lifetimeMember: false,
+        paymentNotes: '',
+        renewals: []
+    },
+    // Member 7 - Edward McBriarty (referrer)
+    {
+        id: 7,
+        status: 'ACTIVE',
+        recType: 'IND',
+        newMemberDate: '2000-01-15',
+        originalStartDate: '2000-01-15',
+        cluster: '8',
+        senior: true,
+        firstName1: 'Edward',
+        midName1: '',
+        lastName1: 'McBriarty',
+        suffix1: '',
+        firstName2: '',
+        midName2: '',
+        lastName2: '',
+        suffix2: '',
+        streetNo: '78',
+        streetName: 'Main Street',
+        aptNo: '',
+        addressLine2: '',
+        city: 'Hartford',
+        state: 'CT',
+        zip: '06103',
+        plus4: '',
+        company: '',
+        note: '',
+        employer: 'Retired',
+        phone1: '(860) 555-0007',
+        phone1Type: 'HOME',
+        phone1Ext: '',
+        phone2: '',
+        phone2Type: '',
+        phone2Ext: '',
+        phone3: '',
+        phone3Type: '',
+        phone3Ext: '',
+        email: 'emcbriarty@email.com',
+        emailOptedOut: false,
+        oilCoCode: 'DZEN',
+        oilId: '0007000',
+        propCoCode: '',
+        propaneId: '',
+        propaneStatus: 'NO PROPANE',
+        howJoined: 'MAIL',
+        referral: 'CCAG',
+        electricStatus: 'UNKNOWN',
+        elecSignUpDate: '',
+        elecStartDate: '',
+        nameKey: 'MCBR',
+        droppedDate: '',
+        electricityAccountNumber: '',
+        nextStep: '',
+        referredById: '',
+        dateReferred: '',
+        registrationFee: '10',
+        dtPaid: '2000-01-15',
+        checkCredit: '0007',
+        lifetimeMember: true,
+        paymentNotes: '',
+        renewals: []
+    },
+    // Referred by member 7
+    {
+        id: 77,
+        status: 'ACTIVE',
+        recType: 'IND',
+        newMemberDate: '2007-06-18',
+        originalStartDate: '2007-06-18',
+        cluster: '8',
+        senior: false,
+        firstName1: 'Edward',
+        midName1: '',
+        lastName1: 'McBriarty',
+        suffix1: 'Jr',
+        firstName2: '',
+        midName2: '',
+        lastName2: '',
+        suffix2: '',
+        streetNo: '80',
+        streetName: 'Main Street',
+        aptNo: '',
+        addressLine2: '',
+        city: 'Hartford',
+        state: 'CT',
+        zip: '06103',
+        plus4: '',
+        company: '',
+        note: '',
+        employer: '',
+        phone1: '(860) 555-0077',
+        phone1Type: 'HOME',
+        phone1Ext: '',
+        phone2: '',
+        phone2Type: '',
+        phone2Ext: '',
+        phone3: '',
+        phone3Type: '',
+        phone3Ext: '',
+        email: 'emcbriarty.jr@email.com',
+        emailOptedOut: false,
+        oilCoCode: 'DZEN',
+        oilId: '0077000',
+        propCoCode: '',
+        propaneId: '',
+        propaneStatus: 'NO PROPANE',
+        howJoined: 'REF',
+        referral: 'MEMBER',
+        electricStatus: 'UNKNOWN',
+        elecSignUpDate: '',
+        elecStartDate: '',
+        nameKey: 'MCBR',
+        droppedDate: '',
+        electricityAccountNumber: '',
+        nextStep: '',
+        referredById: '7',
+        dateReferred: '2007-06-18',
+        registrationFee: '10',
+        dtPaid: '2007-06-18',
+        checkCredit: '0077',
+        lifetimeMember: false,
+        paymentNotes: '',
+        renewals: []
+    },
+    // Member 25 - Current Resi style referrer
+    {
+        id: 25,
+        status: 'ACTIVE',
+        recType: 'IND',
+        newMemberDate: '1998-05-01',
+        originalStartDate: '1998-05-01',
+        cluster: '12',
+        senior: true,
+        firstName1: 'Current',
+        midName1: '',
+        lastName1: 'Resi',
+        suffix1: '',
+        firstName2: '',
+        midName2: '',
+        lastName2: '',
+        suffix2: '',
+        streetNo: '25',
+        streetName: 'Residence Way',
+        aptNo: '',
+        addressLine2: '',
+        city: 'New Britain',
+        state: 'CT',
+        zip: '06051',
+        plus4: '',
+        company: '',
+        note: '',
+        employer: 'Retired',
+        phone1: '(860) 555-0025',
+        phone1Type: 'HOME',
+        phone1Ext: '',
+        phone2: '',
+        phone2Type: '',
+        phone2Ext: '',
+        phone3: '',
+        phone3Type: '',
+        phone3Ext: '',
+        email: 'cresi@email.com',
+        emailOptedOut: false,
+        oilCoCode: 'PETRO',
+        oilId: '0025000',
+        propCoCode: '',
+        propaneId: '',
+        propaneStatus: 'NO PROPANE',
+        howJoined: 'PHO',
+        referral: 'CCAG',
+        electricStatus: 'UNKNOWN',
+        elecSignUpDate: '',
+        elecStartDate: '',
+        nameKey: 'RESI',
+        droppedDate: '',
+        electricityAccountNumber: '',
+        nextStep: '',
+        referredById: '',
+        dateReferred: '',
+        registrationFee: '10',
+        dtPaid: '1998-05-01',
+        checkCredit: '0025',
+        lifetimeMember: true,
+        paymentNotes: '',
+        renewals: []
+    },
+    // Referred by member 25
+    {
+        id: 800,
+        status: 'ACTIVE',
+        recType: 'IND',
+        newMemberDate: '2001-06-04',
+        originalStartDate: '2001-06-04',
+        cluster: '12',
+        senior: false,
+        firstName1: 'Thomas',
+        midName1: '',
+        lastName1: 'Lyden',
+        suffix1: '',
+        firstName2: '',
+        midName2: '',
+        lastName2: '',
+        suffix2: '',
+        streetNo: '800',
+        streetName: 'Thomas Street',
+        aptNo: '',
+        addressLine2: '',
+        city: 'New Britain',
+        state: 'CT',
+        zip: '06051',
+        plus4: '',
+        company: '',
+        note: '',
+        employer: '',
+        phone1: '(860) 555-0800',
+        phone1Type: 'HOME',
+        phone1Ext: '',
+        phone2: '',
+        phone2Type: '',
+        phone2Ext: '',
+        phone3: '',
+        phone3Type: '',
+        phone3Ext: '',
+        email: 'tlyden@email.com',
+        emailOptedOut: false,
+        oilCoCode: 'PETRO',
+        oilId: '0800000',
+        propCoCode: '',
+        propaneId: '',
+        propaneStatus: 'NO PROPANE',
+        howJoined: 'REF',
+        referral: 'MEMBER',
+        electricStatus: 'UNKNOWN',
+        elecSignUpDate: '',
+        elecStartDate: '',
+        nameKey: 'LYDE',
+        droppedDate: '',
+        electricityAccountNumber: '',
+        nextStep: '',
+        referredById: '25',
+        dateReferred: '2001-06-04',
+        registrationFee: '10',
+        dtPaid: '2001-06-04',
+        checkCredit: '0800',
+        lifetimeMember: false,
+        paymentNotes: '',
+        renewals: []
+    },
+    {
+        id: 821,
+        status: 'ACTIVE',
+        recType: 'IND',
+        newMemberDate: '2001-06-18',
+        originalStartDate: '2001-06-18',
+        cluster: '12',
+        senior: false,
+        firstName1: 'Kenneth',
+        midName1: '',
+        lastName1: 'Roseman',
+        suffix1: '',
+        firstName2: '',
+        midName2: '',
+        lastName2: '',
+        suffix2: '',
+        streetNo: '821',
+        streetName: 'Kenneth Ave',
+        aptNo: '',
+        addressLine2: '',
+        city: 'New Britain',
+        state: 'CT',
+        zip: '06051',
+        plus4: '',
+        company: '',
+        note: '',
+        employer: '',
+        phone1: '(860) 555-0821',
+        phone1Type: 'HOME',
+        phone1Ext: '',
+        phone2: '',
+        phone2Type: '',
+        phone2Ext: '',
+        phone3: '',
+        phone3Type: '',
+        phone3Ext: '',
+        email: 'kroseman@email.com',
+        emailOptedOut: false,
+        oilCoCode: 'PETRO',
+        oilId: '0821000',
+        propCoCode: '',
+        propaneId: '',
+        propaneStatus: 'NO PROPANE',
+        howJoined: 'REF',
+        referral: 'MEMBER',
+        electricStatus: 'UNKNOWN',
+        elecSignUpDate: '',
+        elecStartDate: '',
+        nameKey: 'ROSE',
+        droppedDate: '',
+        electricityAccountNumber: '',
+        nextStep: '',
+        referredById: '25',
+        dateReferred: '2001-06-18',
+        registrationFee: '10',
+        dtPaid: '2001-06-18',
+        checkCredit: '0821',
+        lifetimeMember: false,
+        paymentNotes: '',
+        renewals: []
+    },
     {
         id: 2,
         status: 'ACTIVE',
@@ -381,6 +813,8 @@ function switchTab(tabId) {
         updateMembersList();
     } else if (tabId === 'member-status-rpt') {
         updateStats();
+    } else if (tabId === 'referrals-by-member') {
+        updateReferralsByMemberReport();
     }
 }
 
@@ -1220,6 +1654,89 @@ function loadOilCoMembers() {
     if (members.length === 0) {
         tbody.innerHTML = '<tr><td colspan="4" style="text-align:center">No members found for this oil company</td></tr>';
     }
+}
+
+// ==================== REFERRALS BY MEMBER REPORT ====================
+function updateReferralsByMemberReport() {
+    const container = document.getElementById('referralsByMemberContent');
+    if (!container) return;
+
+    // Build a map of referring member ID -> list of referred members
+    const referralMap = {};
+
+    sampleMembers.forEach(member => {
+        if (member.referredById) {
+            const referringId = member.referredById;
+            if (!referralMap[referringId]) {
+                referralMap[referringId] = [];
+            }
+            referralMap[referringId].push(member);
+        }
+    });
+
+    // Get all members who have made referrals
+    const referringMembers = sampleMembers.filter(m => referralMap[m.id.toString()]);
+
+    let html = '';
+
+    referringMembers.forEach(referrer => {
+        const referrals = referralMap[referrer.id.toString()] || [];
+
+        html += `
+            <div class="report-member-section">
+                <div class="report-member-header">
+                    <span class="report-member-id">${referrer.id}</span>
+                    <span class="report-member-name">
+                        <span class="report-member-firstname">${referrer.firstName1}</span>
+                        <span class="report-member-lastname">${referrer.lastName1}</span>
+                    </span>
+                </div>
+        `;
+
+        referrals.forEach(referred => {
+            const dateStr = referred.dateReferred ? formatReportDate(referred.dateReferred) : '';
+            html += `
+                <div class="report-referral-row">
+                    <span class="report-referral-id">${referred.id}</span>
+                    <span class="report-referral-firstname">${referred.firstName1}</span>
+                    <span class="report-referral-lastname">${referred.lastName1}</span>
+                    <span class="report-referral-date">${dateStr}</span>
+                </div>
+            `;
+        });
+
+        html += `
+                <div class="report-referred-count">
+                    <span class="report-referred-label"># Referred:</span>
+                    <span class="report-referred-number">${referrals.length}</span>
+                </div>
+            </div>
+        `;
+    });
+
+    // If no referrals found, show a message
+    if (referringMembers.length === 0) {
+        html = '<div style="text-align: center; padding: 40px; color: #666;">No referrals found in the system.</div>';
+    }
+
+    container.innerHTML = html;
+
+    // Update footer date
+    const footerDate = document.getElementById('referralsFooterDate');
+    if (footerDate) {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        footerDate.textContent = now.toLocaleDateString('en-US', options);
+    }
+}
+
+function formatReportDate(dateString) {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
 }
 
 // ==================== UTILITY FUNCTIONS ====================

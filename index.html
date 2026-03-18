@@ -879,33 +879,21 @@
 
         <!-- ==================== REFERRALS BY MEMBER TAB ==================== -->
         <div id="referrals-by-member" class="tab-content">
-            <h2>REFERRALS BY MEMBER</h2>
-            <div class="card">
-                <div class="card-title">Member Referrals</div>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Referring Member</th>
-                            <th>Referred Member</th>
-                            <th>Date Referred</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Chris Marolda</td>
-                            <td>Jane Wilson</td>
-                            <td>03/15/2024</td>
-                            <td><span class="badge badge-success">Active</span></td>
-                        </tr>
-                        <tr>
-                            <td>Robert Smith</td>
-                            <td>Michael Brown</td>
-                            <td>06/20/2023</td>
-                            <td><span class="badge badge-warning">Prospective</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="report-page">
+                <div class="report-header">
+                    <h1 class="report-title">REFERRALS BY MEMBER</h1>
+                    <div class="report-date-row">
+                        <span class="report-date-label">Date:</span>
+                        <span class="report-date-value" id="referralsReportDate"></span>
+                    </div>
+                </div>
+                <div class="report-body" id="referralsByMemberContent">
+                    <!-- Populated by JavaScript -->
+                </div>
+                <div class="report-footer">
+                    <span class="report-footer-date" id="referralsFooterDate"></span>
+                    <span class="report-footer-page">Page 1</span>
+                </div>
             </div>
         </div>
 

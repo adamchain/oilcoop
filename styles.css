@@ -937,6 +937,161 @@ h2 {
     height: 16px;
 }
 
+/* ==================== REPORT PAGE STYLES ==================== */
+.report-page {
+    background: #fff;
+    padding: 30px 40px;
+    min-height: calc(100vh - 150px);
+    border: 1px solid #808080;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+}
+
+.report-header {
+    margin-bottom: 25px;
+}
+
+.report-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    margin: 0 0 20px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.report-date-row {
+    font-size: 11px;
+    color: #000;
+    border-bottom: 1px solid #808080;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+.report-date-label {
+    font-weight: normal;
+}
+
+.report-date-value {
+    margin-left: 5px;
+}
+
+.report-body {
+    font-size: 11px;
+}
+
+/* Member section in report */
+.report-member-section {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.report-member-header {
+    display: flex;
+    align-items: baseline;
+    font-size: 11px;
+    font-weight: bold;
+    color: #8B4513;
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
+.report-member-id {
+    min-width: 50px;
+}
+
+.report-member-name {
+    display: flex;
+}
+
+.report-member-firstname {
+    min-width: 120px;
+}
+
+.report-member-lastname {
+    min-width: 150px;
+}
+
+/* Referral sub-header (Current Resi style) */
+.report-referral-header {
+    display: flex;
+    font-size: 11px;
+    font-weight: bold;
+    color: #8B4513;
+    margin-bottom: 6px;
+    padding-left: 50px;
+}
+
+/* Referral row in report */
+.report-referral-row {
+    display: flex;
+    align-items: baseline;
+    font-size: 11px;
+    padding: 2px 0;
+    padding-left: 50px;
+}
+
+.report-referral-id {
+    min-width: 60px;
+    color: #000;
+}
+
+.report-referral-firstname {
+    min-width: 120px;
+    color: #000;
+}
+
+.report-referral-lastname {
+    flex: 1;
+    color: #000;
+}
+
+.report-referral-date {
+    color: #000;
+    text-align: right;
+    min-width: 100px;
+}
+
+/* Referred count row */
+.report-referred-count {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    font-size: 11px;
+    color: #000;
+    margin-top: 8px;
+    padding-right: 0;
+}
+
+.report-referred-label {
+    margin-right: 15px;
+}
+
+.report-referred-number {
+    min-width: 20px;
+    text-align: right;
+}
+
+/* Report footer */
+.report-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #000;
+    padding-top: 20px;
+    margin-top: 40px;
+    border-top: 1px solid #d0d0d0;
+}
+
+.report-footer-date {
+    font-style: normal;
+}
+
+.report-footer-page {
+    font-style: normal;
+}
+
 /* ==================== PRINT STYLES ==================== */
 @media print {
     .header,
