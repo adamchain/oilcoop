@@ -1351,9 +1351,54 @@ function saveMailAddress() {
 
 // Oil company data store
 const oilCompanies = [
-    { code: 'PETRO', name: 'Petro Home Services', phone: '(800) 645-4328', contact: 'Customer Service', address: '100 Main Street, Hartford, CT', email: '', notes: '' },
-    { code: 'HOCON', name: 'Hocon Gas', phone: '(860) 693-8388', contact: 'Service Desk', address: '', email: '', notes: '' },
-    { code: 'DZEN', name: 'Dzen Oil Company', phone: '(860) 621-6627', contact: 'Main Office', address: '', email: '', notes: '' }
+    {
+        code: 'PETRO',
+        name: 'Petro Fuel',
+        address: '55 Day Street',
+        city: 'Norwalk',
+        state: 'CT',
+        zip: '06854',
+        phone: '(860) 693-7700',
+        fax: '',
+        email: '',
+        contact: 'Monica Faraci',
+        contact2: '',
+        contact2Ph: '',
+        contact2Fx: '',
+        notes: ''
+    },
+    {
+        code: 'HOCON',
+        name: 'Hocon Gas',
+        address: '123 Industrial Park',
+        city: 'Torrington',
+        state: 'CT',
+        zip: '06790',
+        phone: '(860) 693-8388',
+        fax: '',
+        email: '',
+        contact: 'Service Desk',
+        contact2: '',
+        contact2Ph: '',
+        contact2Fx: '',
+        notes: ''
+    },
+    {
+        code: 'DZEN',
+        name: 'Dzen Oil Company',
+        address: '456 Main Road',
+        city: 'South Windsor',
+        state: 'CT',
+        zip: '06074',
+        phone: '(860) 621-6627',
+        fax: '',
+        email: '',
+        contact: 'Main Office',
+        contact2: '',
+        contact2Ph: '',
+        contact2Fx: '',
+        notes: ''
+    }
 ];
 
 function showOilCoInfo() {
@@ -1523,21 +1568,58 @@ function addRenewalRow() {
 }
 
 function saveNewCompany() {
-    const code = document.getElementById('newCoCode').value;
-    const name = document.getElementById('newCoName').value;
+    const code = document.getElementById('newCoCode').value.toUpperCase().trim();
+    const name = document.getElementById('newCoName').value.trim();
 
-    if (code && name) {
-        hideModal('addCompanyModal');
-        showToast(`Company ${code} added successfully`, 'success');
-
-        // Clear form
-        document.getElementById('newCoCode').value = '';
-        document.getElementById('newCoName').value = '';
-        document.getElementById('newCoPhone').value = '';
-        document.getElementById('newCoContact').value = '';
-    } else {
-        showToast('Please fill in required fields', 'error');
+    if (!code || !name) {
+        showToast('Please fill in Oil Co Code and Name', 'error');
+        return;
     }
+
+    // Check if code already exists
+    if (oilCompanies.find(c => c.code === code)) {
+        showToast('Oil company code already exists', 'error');
+        return;
+    }
+
+    // Gather all form fields
+    const newCompany = {
+        code: code,
+        name: name,
+        address: document.getElementById('newCoAddress').value.trim(),
+        city: document.getElementById('newCoCity').value.trim(),
+        state: document.getElementById('newCoState').value.trim(),
+        zip: document.getElementById('newCoZip').value.trim(),
+        phone: document.getElementById('newCoPhone').value.trim(),
+        fax: document.getElementById('newCoFax').value.trim(),
+        email: document.getElementById('newCoEmail').value.trim(),
+        contact: document.getElementById('newCoContact').value.trim(),
+        contact2: document.getElementById('newCoContact2').value.trim(),
+        contact2Ph: document.getElementById('newCoContact2Ph').value.trim(),
+        contact2Fx: document.getElementById('newCoContact2Fx').value.trim(),
+        notes: ''
+    };
+
+    oilCompanies.push(newCompany);
+    updateOilCoCodeDropdowns();
+
+    hideModal('addCompanyModal');
+    showToast(`Company ${code} added successfully`, 'success');
+
+    // Clear form
+    clearNewCompanyForm();
+}
+
+function clearNewCompanyForm() {
+    const fields = [
+        'newCoCode', 'newCoName', 'newCoAddress', 'newCoCity', 'newCoState', 'newCoZip',
+        'newCoPhone', 'newCoFax', 'newCoEmail', 'newCoContact', 'newCoContact2',
+        'newCoContact2Ph', 'newCoContact2Fx'
+    ];
+    fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+    });
 }
 
 // ==================== REPORT ACTIONS ====================

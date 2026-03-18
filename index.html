@@ -1092,32 +1092,78 @@
     <!-- ==================== MODALS ==================== -->
     <!-- Add Company Modal -->
     <div id="addCompanyModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add New Oil Company</h3>
-                <button class="modal-close" onclick="hideModal('addCompanyModal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Company Code</label>
-                    <input type="text" id="newCoCode" maxlength="10">
+        <div class="modal-content modal-oil-company">
+            <div class="oil-co-form-container">
+                <h2 class="oil-co-form-title">Enter New Company</h2>
+
+                <div class="oil-co-form-grid">
+                    <!-- Left Column -->
+                    <div class="oil-co-form-left">
+                        <div class="form-group">
+                            <label>OIL CO CODE</label>
+                            <input type="text" id="newCoCode" maxlength="10" class="oil-co-input oil-co-input-sm">
+                        </div>
+                        <div class="form-group">
+                            <label>OIL CO NAME</label>
+                            <input type="text" id="newCoName" class="oil-co-input oil-co-input-lg">
+                        </div>
+                        <div class="form-group">
+                            <label>OIL CO ADDRESS</label>
+                            <input type="text" id="newCoAddress" class="oil-co-input oil-co-input-lg">
+                        </div>
+                        <div class="oil-co-city-row">
+                            <div class="form-group">
+                                <label>OIL CO CITY</label>
+                                <input type="text" id="newCoCity" class="oil-co-input oil-co-input-city">
+                            </div>
+                            <div class="form-group">
+                                <label>OIL CO STATE</label>
+                                <input type="text" id="newCoState" maxlength="2" class="oil-co-input oil-co-input-state">
+                            </div>
+                            <div class="form-group">
+                                <label>OIL CO ZIP</label>
+                                <input type="text" id="newCoZip" maxlength="10" class="oil-co-input oil-co-input-zip">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="oil-co-form-right">
+                        <div class="form-group">
+                            <label>OIL CO PHONE</label>
+                            <input type="tel" id="newCoPhone" class="oil-co-input">
+                        </div>
+                        <div class="form-group">
+                            <label>OIL CO FAX</label>
+                            <input type="tel" id="newCoFax" class="oil-co-input">
+                        </div>
+                        <div class="form-group">
+                            <label>OIL CO EMAIL</label>
+                            <input type="email" id="newCoEmail" class="oil-co-input">
+                        </div>
+                        <div class="form-group">
+                            <label>OIL CO CONTACT</label>
+                            <input type="text" id="newCoContact" class="oil-co-input">
+                        </div>
+                        <div class="form-group">
+                            <label>OIL CO CONTACT 2</label>
+                            <input type="text" id="newCoContact2" class="oil-co-input">
+                        </div>
+                        <div class="form-group">
+                            <label>OIL CO CONTACT 2 PH</label>
+                            <input type="tel" id="newCoContact2Ph" class="oil-co-input">
+                        </div>
+                        <div class="form-group">
+                            <label>OIL CO CONTACT 2 FX</label>
+                            <input type="tel" id="newCoContact2Fx" class="oil-co-input">
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Company Name</label>
-                    <input type="text" id="newCoName">
+
+                <div class="oil-co-form-buttons">
+                    <button class="btn btn-primary" onclick="saveNewCompany()">Save</button>
+                    <button class="btn btn-secondary" onclick="hideModal('addCompanyModal')">Cancel</button>
                 </div>
-                <div class="form-group">
-                    <label>Phone</label>
-                    <input type="tel" id="newCoPhone">
-                </div>
-                <div class="form-group">
-                    <label>Contact Person</label>
-                    <input type="text" id="newCoContact">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="hideModal('addCompanyModal')">Cancel</button>
-                <button class="btn btn-primary" onclick="saveNewCompany()">Save</button>
             </div>
         </div>
     </div>
